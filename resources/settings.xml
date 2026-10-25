@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="1">
+  <section id="plugin.video.chomiteca">
+    <category id="general" label="30015">
+      <group id="1">
+        <setting id="download-folder" type="path" label="30040">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <writable>true</writable>
+          </constraints>
+          <control type="button" format="path">
+            <heading>30040</heading>
+          </control>
+        </setting>
+        <setting id="max_downloads" type="integer" label="40359">
+          <level>0</level>
+          <default>2</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>5</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>false</popup>
+          </control>
+        </setting>
+        <setting id="youtube_api_key" type="string" label="30041">
+          <level>0</level>
+          <default></default>
+          <control type="edit" format="string">
+            <heading>30041</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2">
+        <setting id="imagens-disable" type="boolean" label="30026">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="legendas-disable" type="boolean" label="30027">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+    <category id="interface" label="30016">
+      <group id="1">
+        <setting id="filesorder" type="integer" label="30007">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="50030">0</option>
+              <option label="50031">1</option>
+              <option label="50032">2</option>
+              <option label="50033">3</option>
+            </options>
+          </constraints>
+          <control type="list" format="string">
+            <heading>30007</heading>
+          </control>
+        </setting>
+        <setting id="fileasc" type="integer" label="30008">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30020">0</option>
+              <option label="30021">1</option>
+            </options>
+          </constraints>
+          <control type="list" format="string">
+            <heading>30008</heading>
+          </control>
+        </setting>
+        <setting id="aviso-extensao" type="boolean" label="30000">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="ultima-pesquisa" type="string" label="30009">
+          <level>4</level>
+          <default></default>
+          <control type="edit" format="string">
+            <heading>30009</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="library" label="30017">
+      <group id="1">
+        <setting id="libraryfolder" type="path" label="30147">
+          <level>0</level>
+          <default>special://userdata/addon_data/plugin.video.chomiteca/Movies</default>
+          <constraints>
+            <writable>true</writable>
+          </constraints>
+          <control type="button" format="path">
+            <heading>30147</heading>
+          </control>
+        </setting>
+        <setting id="tvshowlibraryfolder" type="path" label="30148">
+          <level>0</level>
+          <default>special://userdata/addon_data/plugin.video.chomiteca/TVshows</default>
+          <constraints>
+            <writable>true</writable>
+          </constraints>
+          <control type="button" format="path">
+            <heading>30148</heading>
+          </control>
+        </setting>
+        <setting id="musicvideolibraryfolder" type="path" label="30150">
+          <level>0</level>
+          <default>special://userdata/addon_data/plugin.video.chomiteca/Musicvideos</default>
+          <constraints>
+            <writable>true</writable>
+          </constraints>
+          <control type="button" format="path">
+            <heading>30150</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2">
+        <setting id="movielibrary-enable" type="boolean" label="30028">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="moviename-enable" type="boolean" label="30029">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="tvshowlibrary-enable" type="boolean" label="30030">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="tvshowname-enable" type="boolean" label="30031">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="tvshowyear-enable" type="boolean" label="30032">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+    <category id="search" label="30018">
+      <group id="1">
+        <setting id="search_sort" type="integer" label="40324">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="40325">0</option>
+              <option label="40326">1</option>
+              <option label="40327">2</option>
+              <option label="40328">3</option>
+            </options>
+          </constraints>
+          <control type="list" format="string">
+            <heading>40324</heading>
+          </control>
+        </setting>
+        <setting id="search-order" type="boolean" label="30010">
+          <level>4</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="search_history_size" type="integer" label="40367">
+          <level>0</level>
+          <default>15</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>50</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>false</popup>
+          </control>
+        </setting>
+        <setting id="folder-type" type="integer" label="30014">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30035">0</option>
+              <option label="30036">1</option>
+            </options>
+          </constraints>
+          <control type="list" format="string">
+            <heading>30014</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2">
+        <setting id="activate-size" type="boolean" label="30011">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="min-size" type="integer" label="30012">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>10</step>
+            <maximum>100000</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="activate-size" operator="is">true</dependency>
+          </dependencies>
+          <control type="edit" format="integer">
+            <heading>30012</heading>
+          </control>
+        </setting>
+        <setting id="max-size" type="integer" label="30013">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>10</step>
+            <maximum>100000</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="activate-size" operator="is">true</dependency>
+          </dependencies>
+          <control type="edit" format="integer">
+            <heading>30013</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="cache" label="40350">
+      <group id="1">
+        <setting id="cache_minutes" type="integer" label="40351">
+          <level>0</level>
+          <default>10</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>120</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>false</popup>
+          </control>
+        </setting>
+        <setting id="prefetch_next" type="boolean" label="40352">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="act_clear_cache" type="action" label="40353">
+          <level>0</level>
+          <data>RunPlugin(plugin://plugin.video.chomiteca/?mode=56)</data>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="metadata" label="40354">
+      <group id="1">
+        <setting id="metadata_parse" type="boolean" label="40355">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="act_tmdb_key" type="action" label="40390">
+          <level>0</level>
+          <data>RunPlugin(plugin://plugin.video.chomiteca/?mode=57)</data>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+        <setting id="tmdb_api_key" type="string" label="40356">
+          <level>0</level>
+          <default></default>
+          <control type="edit" format="string">
+            <heading>40356</heading>
+          </control>
+        </setting>
+        <setting id="metadata_lang" type="string" label="40357">
+          <level>0</level>
+          <default>es-ES</default>
+          <control type="edit" format="string">
+            <heading>40357</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="playback" label="40360">
+      <group id="1">
+        <setting id="remember_progress" type="boolean" label="40361">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="resume_ask" type="boolean" label="40362">
+          <level>0</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="enable" setting="remember_progress" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+    <category id="subtitles" label="30140">
+      <group id="1">
+        <setting id="subtitles" type="boolean" label="30143">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="sublang1" type="string" label="30144">
+          <level>0</level>
+          <default>English</default>
+          <constraints>
+            <options>
+              <option>Afrikaans</option>
+              <option>Albanian</option>
+              <option>Arabic</option>
+              <option>Armenian</option>
+              <option>Basque</option>
+              <option>Bengali</option>
+              <option>Bosnian</option>
+              <option>Breton</option>
+              <option>Bulgarian</option>
+              <option>Burmese</option>
+              <option>Catalan</option>
+              <option>Chinese</option>
+              <option>Croatian</option>
+              <option>Czech</option>
+              <option>Danish</option>
+              <option>Dutch</option>
+              <option>English</option>
+              <option>Esperanto</option>
+              <option>Estonian</option>
+              <option>Finnish</option>
+              <option>French</option>
+              <option>Galician</option>
+              <option>Georgian</option>
+              <option>German</option>
+              <option>Greek</option>
+              <option>Hebrew</option>
+              <option>Hindi</option>
+              <option>Hungarian</option>
+              <option>Icelandic</option>
+              <option>Indonesian</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+              <option>Kazakh</option>
+              <option>Khmer</option>
+              <option>Korean</option>
+              <option>Latvian</option>
+              <option>Lithuanian</option>
+              <option>Luxembourgish</option>
+              <option>Macedonian</option>
+              <option>Malay</option>
+              <option>Malayalam</option>
+              <option>Manipuri</option>
+              <option>Mongolian</option>
+              <option>Montenegrin</option>
+              <option>Norwegian</option>
+              <option>Occitan</option>
+              <option>Persian</option>
+              <option>Polish</option>
+              <option>Portuguese</option>
+              <option>Portuguese(Brazil)</option>
+              <option>Romanian</option>
+              <option>Russian</option>
+              <option>Serbian</option>
+              <option>Sinhalese</option>
+              <option>Slovak</option>
+              <option>Slovenian</option>
+              <option>Spanish</option>
+              <option>Swahili</option>
+              <option>Swedish</option>
+              <option>Syriac</option>
+              <option>Tagalog</option>
+              <option>Tamil</option>
+              <option>Telugu</option>
+              <option>Thai</option>
+              <option>Turkish</option>
+              <option>Ukrainian</option>
+              <option>Urdu</option>
+            </options>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="subtitles" operator="is">true</dependency>
+          </dependencies>
+          <control type="list" format="string">
+            <heading>30144</heading>
+          </control>
+        </setting>
+        <setting id="sublang2" type="string" label="30145">
+          <level>0</level>
+          <default>English</default>
+          <constraints>
+            <options>
+              <option>Afrikaans</option>
+              <option>Albanian</option>
+              <option>Arabic</option>
+              <option>Armenian</option>
+              <option>Basque</option>
+              <option>Bengali</option>
+              <option>Bosnian</option>
+              <option>Breton</option>
+              <option>Bulgarian</option>
+              <option>Burmese</option>
+              <option>Catalan</option>
+              <option>Chinese</option>
+              <option>Croatian</option>
+              <option>Czech</option>
+              <option>Danish</option>
+              <option>Dutch</option>
+              <option>English</option>
+              <option>Esperanto</option>
+              <option>Estonian</option>
+              <option>Finnish</option>
+              <option>French</option>
+              <option>Galician</option>
+              <option>Georgian</option>
+              <option>German</option>
+              <option>Greek</option>
+              <option>Hebrew</option>
+              <option>Hindi</option>
+              <option>Hungarian</option>
+              <option>Icelandic</option>
+              <option>Indonesian</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+              <option>Kazakh</option>
+              <option>Khmer</option>
+              <option>Korean</option>
+              <option>Latvian</option>
+              <option>Lithuanian</option>
+              <option>Luxembourgish</option>
+              <option>Macedonian</option>
+              <option>Malay</option>
+              <option>Malayalam</option>
+              <option>Manipuri</option>
+              <option>Mongolian</option>
+              <option>Montenegrin</option>
+              <option>Norwegian</option>
+              <option>Occitan</option>
+              <option>Persian</option>
+              <option>Polish</option>
+              <option>Portuguese</option>
+              <option>Portuguese(Brazil)</option>
+              <option>Romanian</option>
+              <option>Russian</option>
+              <option>Serbian</option>
+              <option>Sinhalese</option>
+              <option>Slovak</option>
+              <option>Slovenian</option>
+              <option>Spanish</option>
+              <option>Swahili</option>
+              <option>Swedish</option>
+              <option>Syriac</option>
+              <option>Tagalog</option>
+              <option>Tamil</option>
+              <option>Telugu</option>
+              <option>Thai</option>
+              <option>Turkish</option>
+              <option>Ukrainian</option>
+              <option>Urdu</option>
+            </options>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="subtitles" operator="is">true</dependency>
+          </dependencies>
+          <control type="list" format="string">
+            <heading>30145</heading>
+          </control>
+        </setting>
+        <setting id="minsize" type="integer" label="30146">
+          <level>0</level>
+          <default>20</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>1000</maximum>
+          </constraints>
+          <control type="edit" format="integer">
+            <heading>30146</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="strm" label="30180">
+      <group id="1">
+        <setting id="strm_output_folder" type="path" label="30180">
+          <level>0</level>
+          <default>special://profile/addon_data/plugin.video.chomiteca/STRM_Exports/</default>
+          <constraints>
+            <writable>true</writable>
+          </constraints>
+          <control type="button" format="path">
+            <heading>30180</heading>
+          </control>
+        </setting>
+        <setting id="strm_normalize" type="boolean" label="40363">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="strm_nfo" type="boolean" label="40364">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="strm_prune" type="boolean" label="40365">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="strm_update_library" type="boolean" label="40366">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="strm_default_browse_path" type="string" label="30180">
+          <level>4</level>
+          <default></default>
+          <control type="edit" format="string">
+            <heading>30180</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="tools" label="40369">
+      <group id="1">
+        <setting id="act_diag" type="action" label="40301">
+          <level>0</level>
+          <data>RunPlugin(plugin://plugin.video.chomiteca/?mode=54)</data>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+        <setting id="act_log" type="action" label="40337">
+          <level>0</level>
+          <data>RunPlugin(plugin://plugin.video.chomiteca/?mode=55)</data>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+        <setting id="act_cache" type="action" label="40353">
+          <level>0</level>
+          <data>RunPlugin(plugin://plugin.video.chomiteca/?mode=56)</data>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+        <setting id="active_account_id" type="string" label="40373">
+          <level>4</level>
+          <default></default>
+          <control type="edit" format="string">
+            <heading>40373</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+  </section>
+</settings>

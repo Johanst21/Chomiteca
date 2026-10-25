@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.chomiteca"
+       name="Chomiteca"
+       version="1.11.3"
+       provider-name="Johanst21, DeciBelioS/keannu, Leinad4Mind">
+    <requires>
+        <import addon="xbmc.python" version="3.0.1"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="chomiteca.py">
+        <provides>video audio</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="login"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Access Chomikuj.pl content</summary>
+        <summary lang="es_ES">Accede al contenido de Chomikuj.pl</summary>
+        <description lang="en_GB">Browse and play files from Chomikuj.pl accounts. Original by fightnight/Mafarricos/Leinad4Mind. Updated by DeciBelioS/keannu, Johanst21.</description>
+        <description lang="es_ES">Navega y reproduce archivos desde cuentas de Chomikuj.pl. Original de fightnight/Mafarricos/Leinad4Mind. Actualizado por DeciBelioS/keannu, Johanst21.</description>
+        <platform>all</platform>
+        <license>GPL-2.0-or-later</license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+        <news>v1.11.3: logos de plataformas (Netflix, HBO Max...) como carátula de carpeta.</news>
+    </extension>
+</addon>

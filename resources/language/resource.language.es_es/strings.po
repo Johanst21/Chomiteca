@@ -1,0 +1,1466 @@
+# Addon Name: Chomiteca
+# Addon id: plugin.video.chomiteca
+# Addon Provider: Leinad4Mind
+msgid ""
+msgstr ""
+"Project-Id-Version: Chomiteca v1.6.7\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: DeciBelioS\n"
+"Language-Team: Leinad4Mind <leinad4mind@protonmail.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgctxt "#10000"
+msgid "Added shortcut"
+msgstr "Acceso directo añadido"
+
+msgctxt "#10001"
+msgid "Shortcut removed"
+msgstr "Acceso directo eliminado"
+
+msgctxt "#10100"
+msgid "Download started"
+msgstr "Descarga iniciada"
+
+msgctxt "#10101"
+msgid "Download canceled"
+msgstr "Descarga cancelada"
+
+msgctxt "#10102"
+msgid "Download finished"
+msgstr "Descarga finalizada"
+
+msgctxt "#10103"
+msgid "Download failed"
+msgstr "Descarga fallida"
+
+msgctxt "#10104"
+msgid "Server did not respond"
+msgstr "El servidor no responde"
+
+msgctxt "#10105"
+msgid "Continue with the download?"
+msgstr "¿Continuar con la descarga?"
+
+msgctxt "#12000"
+msgid "Enter the season number:"
+msgstr "Introduzca el número de temporada:"
+
+msgctxt "#12001"
+msgid "Invalid Input"
+msgstr "Entrada incorrecta"
+
+msgctxt "#12002"
+msgid "Please enter a valid season number (numeric value)."
+msgstr "Introduzca un número de temporada válido (valor numérico)."
+
+msgctxt "#30000"
+msgid "Enable popup about unknown file extensions."
+msgstr "Activar ventana emergente sobre extensiones de archivo desconocidas."
+
+msgctxt "#30001"
+msgid "Precisa de configurar a conta do Chomikuj para aceder aos conteúdos."
+msgstr "Debe configurar su cuenta Chomikuj para acceder a los contenidos."
+
+msgctxt "#30002"
+msgid "Trailers"
+msgstr "Trailers"
+
+msgctxt "#30004"
+msgid "Activate Chomikuj.pl"
+msgstr "Activar Chomikuj.pl"
+
+msgctxt "#30005"
+msgid "Username Chomikuj"
+msgstr "Nombre de usuario Chomikuj"
+
+msgctxt "#30006"
+msgid "Password Chomikuj"
+msgstr "Contraseña Chomikuj"
+
+msgctxt "#30007"
+msgid "Sort Files"
+msgstr "Ordenar por"
+
+msgctxt "#30008"
+msgid "Sort"
+msgstr "Orden"
+
+msgctxt "#30009"
+msgid "Last Search"
+msgstr "Última búsqueda"
+
+msgctxt "#30010"
+msgid "Sort by size"
+msgstr "Ordenar por tamaño"
+
+msgctxt "#30011"
+msgid "Limit by size"
+msgstr "Límite por tamaño"
+
+msgctxt "#30012"
+msgid "Minimum Size (MB)"
+msgstr "Tamaño mínimo (MB)"
+
+msgctxt "#30013"
+msgid "Maximum Size (MB)"
+msgstr "Tamaño máximo (MB)"
+
+msgctxt "#30014"
+msgid "Type Folder"
+msgstr "Tipo Carpeta"
+
+msgctxt "#30015"
+msgid "Logins"
+msgstr "Conexiones"
+
+msgctxt "#30016"
+msgid "General"
+msgstr "General"
+
+msgctxt "#30017"
+msgid "Library"
+msgstr "Biblioteca"
+
+msgctxt "#30018"
+msgid "Search"
+msgstr "Buscar en"
+
+msgctxt "#30019"
+msgid "Enable Image Covers"
+msgstr "Activar Caratulas de Imágenes"
+
+msgctxt "#30020"
+msgid "Ascending"
+msgstr "Ascendente"
+
+msgctxt "#30021"
+msgid "Descending"
+msgstr "Descendente"
+
+msgctxt "#30026"
+msgid "Hiding image files in explorer"
+msgstr "Ocultar archivos de imágenes en el explorador"
+
+msgctxt "#30027"
+msgid "Hide subtitles files in explorer"
+msgstr "Ocultar archivos de subtítulos en el explorador"
+
+msgctxt "#30028"
+msgid "Movie Library Batch - One Folder per Movie"
+msgstr "Biblioteca de películas por lotes - Una carpeta por película"
+
+msgctxt "#30029"
+msgid "Movie Library Batch - Keep filenames"
+msgstr "Biblioteca de películas por lotes - Conservar nombres de archivo"
+
+msgctxt "#30030"
+msgid "TVShow Library Batch - One Folder per Season"
+msgstr "Biblioteca de series por lotes - Una carpeta por temporada"
+
+msgctxt "#30031"
+msgid "TVShow Library Batch - Keep filenames"
+msgstr "Biblioteca de series por lotes - Conservar nombres de archivo"
+
+msgctxt "#30032"
+msgid "TVShow Library Batch - Delete the year in the TVShow title"
+msgstr "Biblioteca de series por lotes - Borrar el año en el titulo de la serie"
+
+msgctxt "#30035"
+msgid "Folder"
+msgstr "Carpeta"
+
+msgctxt "#30036"
+msgid "Dialog"
+msgstr "Diálogo"
+
+msgctxt "#30040"
+msgid "Download folder"
+msgstr "Carpeta de descargas"
+
+msgctxt "#30041"
+msgid "YouTube API key (for trailers)"
+msgstr "Clave API de YouTube (para tráilers)"
+
+msgctxt "#30140"
+msgid "Subtitles"
+msgstr "Subtítulos"
+
+msgctxt "#30141"
+msgid "Subtitles could be unavailable or out of sync."
+msgstr "Los subtítulos podrían no estar disponibles o estar desincronizados."
+
+msgctxt "#30142"
+msgid "In that case use your own subtitles."
+msgstr "En ese caso, utilice sus propios subtítulos."
+
+msgctxt "#30143"
+msgid "Enable subtitles"
+msgstr "Activar subtítulos"
+
+msgctxt "#30144"
+msgid "Primary Language"
+msgstr "Idioma principal"
+
+msgctxt "#30145"
+msgid "Secondary Language"
+msgstr "Lengua secundaria"
+
+msgctxt "#30146"
+msgid "Minimum file duration to search subtitles (in Minutes)"
+msgstr "Duración mínima del archivo para buscar subtítulos (en minutos)"
+
+msgctxt "#30147"
+msgid "Default folder for movies"
+msgstr "Carpeta predeterminada para las películas"
+
+msgctxt "#30148"
+msgid "Default folder for TVShow"
+msgstr "Carpeta predeterminada para las series"
+
+msgctxt "#30149"
+msgid "Resume"
+msgstr "Reanudar"
+
+msgctxt "#30150"
+msgid "Default folder for videoclips"
+msgstr "Carpeta predeterminada para los videoclips"
+
+msgctxt "#30151"
+msgid "Resume Files Folder"
+msgstr "Reanudar carpeta de archivos"
+
+msgctxt "#30180"
+msgid "STRM output folder"
+msgstr "Carpeta de salida de archivos STRM"
+
+msgctxt "#40000"
+msgid "You need to register in Chomikuj to access."
+msgstr "Es necesario registrarse en Chomikuj para acceder."
+
+msgctxt "#40001"
+msgid "Go to www.chomikuj.pl."
+msgstr "Vaya a www.chomikuj.pl."
+
+msgctxt "#40002"
+msgid "Invalid login details."
+msgstr "Datos de acceso no válidos."
+
+msgctxt "#40003"
+msgid "Invalid Username."
+msgstr "Nombre de usuario no válido."
+
+msgctxt "#40004"
+msgid "Successful login."
+msgstr "Inicio de sesión con éxito."
+
+msgctxt "#40005"
+msgid "No internet connection."
+msgstr "Sin conexión a Internet."
+
+msgctxt "#40006"
+msgid "Retry"
+msgstr "Reintentar"
+
+msgctxt "#40008"
+msgid "Recents Accounts"
+msgstr "Usuarios recientes"
+
+msgctxt "#40009"
+msgid "My "
+msgstr "Mi "
+
+msgctxt "#40010"
+msgid "Go to an Account "
+msgstr "Ir a una cuenta "
+
+msgctxt "#40011"
+msgid "Search Content"
+msgstr "Buscar contenido"
+
+msgctxt "#40012"
+msgid "Messages"
+msgstr "Mensajes"
+
+msgctxt "#40013"
+msgid "Downloads"
+msgstr "Descargas"
+
+msgctxt "#40014"
+msgid "Points"
+msgstr "Puntos"
+
+msgctxt "#40015"
+msgid "Reconnect Addon"
+msgstr "Reconectar addon"
+
+msgctxt "#40016"
+msgid "Installed Version: v"
+msgstr "Versión instalada: v"
+
+msgctxt "#40017"
+msgid "Last version installed (v"
+msgstr "Última versión instalada (v"
+
+msgctxt "#40018"
+msgid "Addon settings"
+msgstr "Configuración del addon"
+
+msgctxt "#40019"
+msgid "Update: v"
+msgstr "Actualización: v"
+
+msgctxt "#40020"
+msgid "Enter on addon"
+msgstr "Entrar en el addon"
+
+msgctxt "#40021"
+msgid "Change settings"
+msgstr "Configuración"
+
+msgctxt "#40022"
+msgid "Select filter"
+msgstr "Seleccionar filtro"
+
+msgctxt "#40023"
+msgid "Account - "
+msgstr "Cuenta - "
+
+msgctxt "#40024"
+msgid "locked"
+msgstr "Bloqueado"
+
+msgctxt "#40025"
+msgid "Loading..."
+msgstr "Cargando..."
+
+msgctxt "#40026"
+msgid "File unavailable. Retry later."
+msgstr "Archivo no disponible. Vuelva a intentarlo más tarde."
+
+msgctxt "#40027"
+msgid "Not available. Retry later."
+msgstr "No disponible. Vuelva a intentarlo más tarde."
+
+msgctxt "#40028"
+msgid "Unknown file format."
+msgstr "Formato de archivo desconocido."
+
+msgctxt "#40029"
+msgid "Consider that XBMC"
+msgstr "Tenga en cuenta XBMC"
+
+msgctxt "#40030"
+msgid "couldn't play that type of file."
+msgstr "no puede reproducir ese tipo de archivo."
+
+msgctxt "#40031"
+msgid "Search"
+msgstr "Buscar en"
+
+msgctxt "#40032"
+msgid "Page error."
+msgstr "Error de página."
+
+msgctxt "#40033"
+msgid "Try again."
+msgstr "Inténtalo de nuevo."
+
+msgctxt "#40034"
+msgid "Addon doesnt connect to update"
+msgstr "El addon no se conecta para actualizar"
+
+msgctxt "#40035"
+msgid "server. Check this situation."
+msgstr "servidor. Comprueba esta situación."
+
+msgctxt "#40036"
+msgid "Error. Check error source."
+msgstr "Error. Compruebe el origen del error."
+
+msgctxt "#40037"
+msgid "Friends"
+msgstr "Amigos"
+
+msgctxt "#40038"
+msgid "Add to playlist"
+msgstr "Añadir a la lista de reproducción"
+
+msgctxt "#40039"
+msgid "Added to playlist"
+msgstr "Añadido a la lista de reproducción"
+
+msgctxt "#40040"
+msgid "Download file"
+msgstr "Descargar archivo"
+
+msgctxt "#40041"
+msgid "Download path"
+msgstr "Ruta de descarga"
+
+msgctxt "#40042"
+msgid "You already have this file."
+msgstr "Ya tienes este archivo."
+
+msgctxt "#40043"
+msgid "Downloading"
+msgstr "Descargando"
+
+msgctxt "#40044"
+msgid "Download Failed"
+msgstr "Descarga Fallida"
+
+msgctxt "#40045"
+msgid "Time remaining"
+msgstr "Tiempo restante"
+
+msgctxt "#40046"
+msgid "Start Playlist"
+msgstr "Iniciar lista de reproducción"
+
+msgctxt "#40047"
+msgid "Delete Playlist"
+msgstr "Borrar lista de reproducción"
+
+msgctxt "#40048"
+msgid "Deleted the Playlist"
+msgstr "Borrado de la lista de reproducción"
+
+msgctxt "#40049"
+msgid "Creating Playlist"
+msgstr "Creación de listas de reproducción"
+
+msgctxt "#40050"
+msgid "Create Playlist"
+msgstr "Crear lista de reproducción"
+
+msgctxt "#40051"
+msgid "Add to Library"
+msgstr "Añadir a la biblioteca"
+
+msgctxt "#40052"
+msgid "Saved '.strm' files"
+msgstr "Archivos '.strm' guardados"
+
+msgctxt "#40053"
+msgid "Create folder:"
+msgstr "Crear carpeta:"
+
+msgctxt "#40054"
+msgid "Shortcuts"
+msgstr "Accesos directos"
+
+msgctxt "#40055"
+msgid "Add Shortcut"
+msgstr "Añadir acceso directo"
+
+msgctxt "#40056"
+msgid "See Trailer"
+msgstr "Ver Trailer"
+
+msgctxt "#40057"
+msgid "Documents"
+msgstr "Documentos"
+
+msgctxt "#40058"
+msgid "Gallery"
+msgstr "Galería"
+
+msgctxt "#40059"
+msgid "Private"
+msgstr "Privado"
+
+msgctxt "#40060"
+msgid "Go Back"
+msgstr "Volver atrás"
+
+msgctxt "#40061"
+msgid "Folder Password"
+msgstr "Contraseña de la carpeta"
+
+msgctxt "#40062"
+msgid "Page "
+msgstr "Página "
+
+msgctxt "#40063"
+msgid "Next "
+msgstr "Siguiente "
+
+msgctxt "#40064"
+msgid "Previous " # Asumiendo que el inglés original debería ser "Previous " para componer "Previous Page"
+msgstr "Anterior "
+
+msgctxt "#40065"
+msgid "Remove Shortcut"
+msgstr "Página Anterior"
+
+msgctxt "#40066"
+msgid "All"
+msgstr "Todos"
+
+msgctxt "#40067"
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt "#40068"
+msgid "Images"
+msgstr "Imágenes"
+
+msgctxt "#40069"
+msgid "Musics"
+msgstr "Música"
+
+msgctxt "#40070"
+msgid "Documents"
+msgstr "Documentos"
+
+msgctxt "#40071"
+msgid "Archives"
+msgstr "Archivos"
+
+msgctxt "#40072"
+msgid "Software"
+msgstr "Software"
+
+msgctxt "#40073"
+msgid "Season"
+msgstr "Temporada"
+
+# NUEVAS TRADUCCIONES / CADENAS DEL CÓDIGO
+msgctxt "#40080"
+msgid "Manage Accounts"
+msgstr "Gestionar Cuentas"
+
+msgctxt "#40081"
+msgid "Delete Cookies"
+msgstr "Eliminar Cookies"
+
+msgctxt "#40082"
+msgid "[COLOR white][B]Add New Account[/B][/COLOR]"
+msgstr "[COLOR white][B]Añadir Nueva Cuenta[/B][/COLOR]"
+
+msgctxt "#40083"
+msgid "Set as Active"
+msgstr "Establecer como Activa"
+
+msgctxt "#40084"
+msgid "Re-Login Active Account"
+msgstr "Re-Login Cuenta Activa"
+
+msgctxt "#40085"
+msgid "Edit Label"
+msgstr "Editar Etiqueta"
+
+msgctxt "#40086"
+msgid "Remove Account"
+msgstr "Eliminar Cuenta"
+
+msgctxt "#40087"
+msgid "Confirm Deletion"
+msgstr "Confirmar Eliminación"
+
+msgctxt "#40088"
+msgid "Chomikuj Username"
+msgstr "Nombre de usuario Chomikuj"
+
+msgctxt "#40089"
+msgid "Chomikuj Password"
+msgstr "Contraseña Chomikuj"
+
+msgctxt "#40090"
+msgid "Label for this account (optional)"
+msgstr "Etiqueta para esta cuenta (opcional)"
+
+msgctxt "#40091"
+msgid "Duplicate Account"
+msgstr "Cuenta Duplicada"
+
+msgctxt "#40092"
+msgid "Label cannot be empty."
+msgstr "La etiqueta no puede estar vacía."
+
+msgctxt "#40093"
+msgid "Label has not changed."
+msgstr "La etiqueta no ha cambiado."
+
+msgctxt "#40094"
+msgid "Label edit cancelled."
+msgstr "Edición de etiqueta cancelada."
+
+msgctxt "#40095"
+msgid "Login successful."
+msgstr "Login exitoso."
+
+msgctxt "#40096"
+msgid "Login failed. Check credentials or connection."
+msgstr "Fallo en el login. Revisa las credenciales o la conexión."
+
+msgctxt "#40097"
+msgid "Account ID {0} not found to activate."
+msgstr "No se encontró la cuenta ID {0} para activar."
+
+msgctxt "#40098"
+msgid "Attempting re-login for active account: {0}"
+msgstr "Intentando re-login para la cuenta activa: {0}"
+
+msgctxt "#40099"
+msgid "Switching to account: {0}"
+msgstr "Cambiando a cuenta: {0}"
+
+msgctxt "#40100"
+msgid "Account '{0}' added."
+msgstr "Cuenta '{0}' añadida."
+
+msgctxt "#40101"
+msgid "Error saving account."
+msgstr "Error al guardar la cuenta."
+
+msgctxt "#40102"
+msgid "Account removed."
+msgstr "Cuenta eliminada."
+
+msgctxt "#40103"
+msgid "Error saving changes after removing account."
+msgstr "Error al guardar cambios tras eliminar cuenta."
+
+msgctxt "#40104"
+msgid "Label updated to: '{0}'"
+msgstr "Etiqueta actualizada a: '{0}'"
+
+msgctxt "#40105"
+msgid "Error saving updated label."
+msgstr "Error al guardar la etiqueta actualizada."
+
+msgctxt "#40106"
+msgid "Cookies deleted successfully."
+msgstr "Cookies eliminadas correctamente."
+
+msgctxt "#40107"
+msgid "No cookie file to delete."
+msgstr "No hay ningún archivo cookies que borrar."
+
+msgctxt "#40108"
+msgid "Operation cancelled."
+msgstr "Operación cancelada."
+
+msgctxt "#40109"
+msgid "No active account or not configured correctly. Please go to 'Manage Accounts'."
+msgstr "No hay cuenta activa o configurada correctamente. Por favor, ve a 'Gestionar Cuentas'."
+
+msgctxt "#40110"
+msgid "{0}: Unknown login response."
+msgstr "{0}: Respuesta de login desconocida."
+
+msgctxt "#40111"
+msgid "(Parent Folder)"
+msgstr "(Carpeta Padre)"
+
+msgctxt "#40112"
+msgid "This shortcut already exists."
+msgstr "Este atajo ya existe."
+
+msgctxt "#40113"
+msgid "Shortcut not found to remove."
+msgstr "No se encontró el atajo para eliminar."
+
+msgctxt "#40114"
+msgid "Account blocked."
+msgstr "Cuenta bloqueada."
+
+msgctxt "#40115"
+msgid "No saved shortcuts."
+msgstr "No hay atajos guardados."
+
+msgctxt "#40116"
+msgid "The temporary playlist is empty."
+msgstr "La lista de reproducción temporal está vacía."
+
+msgctxt "#40117"
+msgid "Playing {0} items from playlist."
+msgstr "Reproduciendo {0} elementos de la playlist."
+
+msgctxt "#40118"
+msgid "Could not resolve any items for playback."
+msgstr "No se pudo resolver ningún elemento para la reproducción."
+
+msgctxt "#40119"
+msgid "YouTube API Key not set in addon settings."
+msgstr "Clave API de YouTube no configurada en los ajustes del addon."
+
+msgctxt "#40120"
+msgid "YouTube API Key Missing"
+msgstr "Falta Clave API de YouTube"
+
+msgctxt "#40121"
+msgid "A YouTube API key is needed to search for trailers. Do you want to open settings?"
+msgstr "Se necesita una clave API de YouTube para buscar tráilers. ¿Quieres abrir la configuración?"
+
+msgctxt "#40122"
+msgid "Open Settings"
+msgstr "Abrir Configuración"
+
+msgctxt "#40123"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "#40124"
+msgid "Playing trailer: {0}"
+msgstr "Reproduciendo tráiler: {0}"
+
+msgctxt "#40125"
+msgid "No trailer found for '{0}'."
+msgstr "No se encontró tráiler para '{0}'."
+
+msgctxt "#40126"
+msgid "Error processing YouTube response."
+msgstr "Error procesando respuesta de YouTube."
+
+msgctxt "#40127"
+msgid "Internal error: Could not determine site."
+msgstr "Error interno: No se pudo determinar el sitio."
+
+msgctxt "#40128"
+msgid "Login required to access this file."
+msgstr "Se requiere iniciar sesión para acceder a este archivo."
+
+msgctxt "#40129"
+msgid "Error: {0}"
+msgstr "Error: {0}"
+
+msgctxt "#40130"
+msgid "Unexpected error processing link: {0}"
+msgstr "Error inesperado procesando enlace: {0}"
+
+msgctxt "#40131"
+msgid "'{0}' added to queue."
+msgstr "'{0}' añadido a la cola."
+
+msgctxt "#40132"
+msgid "Select content type"
+msgstr "Seleccionar tipo de contenido"
+
+msgctxt "#40133"
+msgid "Add to library (Batch)"
+msgstr "Añadir a biblioteca (Lote)"
+
+msgctxt "#40134"
+msgid "The temporary playlist is empty for batch add."
+msgstr "La lista de reproducción temporal está vacía para añadir en lote."
+
+msgctxt "#40135"
+msgid "Adding to Library (Batch)"
+msgstr "Añadiendo a Biblioteca (Lote)"
+
+msgctxt "#40136"
+msgid "Adding {0} items..."
+msgstr "Añadiendo {0} elementos..."
+
+msgctxt "#40137"
+msgid "Updating video library..."
+msgstr "Actualizando biblioteca de vídeo..."
+
+msgctxt "#40138"
+msgid "Kodi Library"
+msgstr "Biblioteca Kodi"
+
+msgctxt "#40139"
+msgid "Added {0}/{1} items."
+msgstr "Añadidos {0}/{1} elementos."
+
+msgctxt "#40150"
+msgid "Movies"
+msgstr "Películas"
+
+msgctxt "#40151"
+msgid "TVshow"
+msgstr "Series"
+
+msgctxt "#40152"
+msgid "Videoclips"
+msgstr "Videoclips"
+
+msgctxt "#40153" # ID 40140 choca con subtitulos
+msgid " ({0} failed)."
+msgstr " ({0} fallidos)."
+
+msgctxt "#40154" # ID 40141 choca
+msgid "Process cancelled. {0}"
+msgstr "Proceso cancelado. {0}"
+
+msgctxt "#40155" # ID 40142 choca
+msgid "Library folder for '{0}' is not configured."
+msgstr "La carpeta de biblioteca para '{0}' no está configurada."
+
+msgctxt "#40156" # ID 40143 choca
+msgid "Failed to create folder (mkdirs): {0}"
+msgstr "Fallo al crear carpeta (mkdirs): {0}"
+
+msgctxt "#40157" # ID 40144 choca
+msgid "Error creating folder: {0}"
+msgstr "Error al crear carpeta: {0}"
+
+msgctxt "#40158" # ID 40145 choca
+msgid "Error: '{0}' exists but is not a folder."
+msgstr "Error: '{0}' existe pero no es una carpeta."
+
+msgctxt "#40159" # ID 40146 choca
+msgid "Error verifying folder: {0}"
+msgstr "Error verificando carpeta: {0}"
+
+msgctxt "#40160"
+msgid "Generate .strm files"
+msgstr "Generar archivos .strm"
+
+msgctxt "#40161"
+msgid "Select destination folder for .strm files"
+msgstr "Selecciona la carpeta de destino para los .strm"
+
+msgctxt "#40162"
+msgid "Could not determine destination folder."
+msgstr "No se pudo determinar la carpeta de destino."
+
+msgctxt "#40163"
+msgid "Error: Could not create destination folder: {0}"
+msgstr "Error: No se pudo crear la carpeta de destino: {0}"
+
+msgctxt "#40164"
+msgid "Generating STRMs for '{0}'"
+msgstr "Generando STRMs para '{0}'"
+
+msgctxt "#40165"
+msgid "Initializing..."
+msgstr "Iniciando..."
+
+msgctxt "#40166"
+msgid "Folder selection cancelled."
+msgstr "Selección de carpeta cancelada."
+
+msgctxt "#40167"
+msgid "Aborted. Generated {0} STRMs."
+msgstr "Abortado. Generados {0} STRMs."
+
+msgctxt "#40168"
+msgid "Completed: {0} STRMs."
+msgstr "Completado: {0} STRMs."
+
+msgctxt "#40169"
+msgid "Generation Completed"
+msgstr "Generación Completada"
+
+msgctxt "#40170"
+msgid "Process Aborted"
+msgstr "Proceso Abortado"
+
+msgctxt "#40171"
+msgid "Generated {0} .strm files."
+msgstr "Generados {0} archivos .strm."
+
+msgctxt "#40172"
+msgid "No .strm files generated (or folder(s) empty)."
+msgstr "No se generaron archivos .strm (o carpeta(s) vacía(s))."
+
+msgctxt "#40173" # ID 40147 choca. Reusamos este ID para la frase de temporada.
+msgid "Season number must be between 1 and 99."
+msgstr "Número de temporada debe ser entre 1 y 99."
+
+msgctxt "#40174" # ID 40148 choca. Reusamos.
+msgid "'{0}' added to library."
+msgstr "'{0}' añadido a la biblioteca."
+
+msgctxt "#40175" # ID 40149 choca. Reusamos.
+msgid "Failed to add '{0}' to library."
+msgstr "Fallo al añadir '{0}' a la biblioteca."
+
+# IDs para cadenas que faltaban de errores y notificaciones generales
+msgctxt "#40176"
+msgid "Invalid shortcut reference."
+msgstr "Referencia de atajo inválida."
+
+msgctxt "#40177"
+msgid "Error managing shortcuts: {0}"
+msgstr "Error gestionando atajos: {0}"
+
+msgctxt "#40178"
+msgid "DB Error (Playlist): {0}"
+msgstr "Error de BD (Playlist): {0}"
+
+msgctxt "#40179"
+msgid "Error adding to playlist DB: {0}"
+msgstr "Error añadiendo a playlist DB: {0}"
+
+msgctxt "#40180"
+msgid "Error clearing playlist DB: {0}"
+msgstr "Error limpiando playlist DB: {0}"
+
+msgctxt "#40181"
+msgid "Missing search term."
+msgstr "Falta término de búsqueda."
+
+msgctxt "#40182"
+msgid "Error performing search: {0}"
+msgstr "Error realizando búsqueda: {0}"
+
+msgctxt "#40183"
+msgid "Could not load folder content."
+msgstr "No se pudo cargar el contenido de la carpeta."
+
+msgctxt "#40184"
+msgid "Content encoding error."
+msgstr "Error de codificación de contenido."
+
+msgctxt "#40185"
+msgid "Error decoding content."
+msgstr "Error decodificando contenido."
+
+msgctxt "#40186"
+msgid "Error processing protected folder (missing elements)."
+msgstr "Error procesando carpeta protegida (faltan elementos)."
+
+msgctxt "#40187"
+msgid "Error submitting password: {0}"
+msgstr "Error enviando contraseña: {0}"
+
+msgctxt "#40188"
+msgid "No results found for the search."
+msgstr "No se encontraron resultados para la búsqueda."
+
+msgctxt "#40189"
+msgid "No unique items found to select in search results."
+msgstr "No se encontraron elementos únicos para seleccionar en los resultados de búsqueda."
+
+msgctxt "#40190"
+msgid "Login required to fetch top collectors."
+msgstr "Se requiere inicio de sesión para obtener los mejores coleccionistas."
+
+msgctxt "#40191"
+msgid "Failed to fetch page for top collectors."
+msgstr "Fallo al obtener la página de los mejores coleccionistas."
+
+msgctxt "#40192"
+msgid "Could not find the collectors list on the page."
+msgstr "No se pudo encontrar la lista de coleccionistas en la página."
+
+msgctxt "#40193"
+msgid "No collectors found in the list."
+msgstr "No se encontraron coleccionistas en la lista."
+
+msgctxt "#40194"
+msgid "No active account for this action."
+msgstr "No hay cuenta activa para esta acción."
+
+msgctxt "#40195"
+msgid "Login required."
+msgstr "Se requiere inicio de sesión."
+
+msgctxt "#40196"
+msgid "Failed to fetch recent chomiks."
+msgstr "Fallo al obtener chomiks recientes."
+
+msgctxt "#40197"
+msgid "No recently added chomiks found."
+msgstr "No se encontraron chomiks añadidos recientemente."
+
+msgctxt "#40198"
+msgid "Could not fetch search options page."
+msgstr "No se pudo obtener la página de opciones de búsqueda."
+
+msgctxt "#40199"
+msgid "No active account configured to view favorites."
+msgstr "No hay cuenta activa configurada para ver favoritos."
+
+msgctxt "#40200"
+msgid "Login required to fetch favorites."
+msgstr "Se requiere inicio de sesión para obtener favoritos."
+
+msgctxt "#40201"
+msgid "Failed to fetch profile page for {0}."
+msgstr "Fallo al obtener la página de perfil para {0}."
+
+msgctxt "#40202"
+msgid "Failed to get necessary info to fetch favorites."
+msgstr "Fallo al obtener la información necesaria para buscar favoritos."
+
+msgctxt "#40203"
+msgid "Failed to fetch favorites list data."
+msgstr "Fallo al obtener los datos de la lista de favoritos."
+
+msgctxt "#40204"
+msgid "No favorites found."
+msgstr "No se encontraron favoritos."
+
+msgctxt "#40205"
+msgid "Error loading previous search data."
+msgstr "Error cargando datos de búsqueda previa."
+
+msgctxt "#40206"
+msgid "Error loading data: {0}"
+msgstr "Error cargando datos: {0}"
+
+msgctxt "#40207"
+msgid "Login required for next page search."
+msgstr "Se requiere inicio de sesión para buscar la página siguiente."
+
+msgctxt "#40208"
+msgid "No more results received."
+msgstr "No se recibieron más resultados."
+
+msgctxt "#40209"
+msgid "Error fetching next page: {0}"
+msgstr "Error buscando siguiente página: {0}"
+
+msgctxt "#40210"
+msgid "Error preparing URL for playback."
+msgstr "Error al preparar URL para reproducción."
+
+msgctxt "#40211"
+msgid "Error returning link to Kodi."
+msgstr "Error al devolver el enlace a Kodi."
+
+msgctxt "#40212"
+msgid "Error creating filename: {0}"
+msgstr "Error creando nombre de archivo: {0}"
+
+msgctxt "#40213"
+msgid "Download cancelled by user."
+msgstr "Descarga cancelada por el usuario."
+
+msgctxt "#40214"
+msgid "Download cancelled (file already exists)."
+msgstr "Descarga cancelada (archivo ya existe)."
+
+msgctxt "#40215"
+msgid "Download Complete: {0}"
+msgstr "Descarga Completa: {0}"
+
+msgctxt "#40216"
+msgid "Error during download: {0}"
+msgstr "Error durante descarga: {0}"
+
+msgctxt "#40217"
+msgid "Login required (cookies missing)."
+msgstr "Se requiere iniciar sesión (faltan cookies)."
+
+msgctxt "#40218"
+msgid "Failed to load cookies, login required."
+msgstr "Fallo al cargar cookies, login requerido."
+
+msgctxt "#40219"
+msgid "Critical failure loading cookies after login."
+msgstr "Fallo crítico al cargar cookies después de login."
+
+msgctxt "#40220"
+msgid "Cookie error: {0}"
+msgstr "Error de cookies: {0}"
+
+msgctxt "#40221"
+msgid "HTTP Error {0} accessing {1}"
+msgstr "Error HTTP {0} al acceder a {1}"
+
+msgctxt "#40222"
+msgid "Invalid name for trailer search."
+msgstr "Nombre inválido para buscar tráiler."
+
+msgctxt "#40223"
+msgid "Error: No URL provided."
+msgstr "Error: No se proporcionó URL."
+
+msgctxt "#40224"
+msgid "Error processing received URL."
+msgstr "Error procesando la URL recibida."
+
+msgctxt "#40225"
+msgid "No active account or username configured for this action."
+msgstr "No hay cuenta activa o nombre de usuario configurado para esta acción."
+
+msgctxt "#40226"
+msgid "Database error: {0}"
+msgstr "Error de base de datos: {0}"
+
+msgctxt "#40227"
+msgid "Unknown action: {0}"
+msgstr "Acción desconocida: {0}"
+
+msgctxt "#40300"
+msgid "Downloads"
+msgstr "Descargas"
+
+msgctxt "#40301"
+msgid "Connection test"
+msgstr "Prueba de conexión"
+
+msgctxt "#40302"
+msgid "Clear finished"
+msgstr "Limpiar terminadas"
+
+msgctxt "#40303"
+msgid "Pause"
+msgstr "Pausar"
+
+msgctxt "#40304"
+msgid "Resume"
+msgstr "Reanudar"
+
+msgctxt "#40305"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "#40306"
+msgid "Retry"
+msgstr "Reintentar"
+
+msgctxt "#40307"
+msgid "Remove from list"
+msgstr "Quitar de la lista"
+
+msgctxt "#40308"
+msgid "Queued"
+msgstr "En cola"
+
+msgctxt "#40309"
+msgid "Downloading"
+msgstr "Descargando"
+
+msgctxt "#40310"
+msgid "Paused"
+msgstr "En pausa"
+
+msgctxt "#40311"
+msgid "Completed"
+msgstr "Completada"
+
+msgctxt "#40312"
+msgid "Error"
+msgstr "Error"
+
+msgctxt "#40313"
+msgid "Canceled"
+msgstr "Cancelada"
+
+msgctxt "#40314"
+msgid "The download queue is empty"
+msgstr "La cola de descargas está vacía"
+
+msgctxt "#40315"
+msgid "Added to the download queue: {}"
+msgstr "Añadido a la cola de descargas: {}"
+
+msgctxt "#40316"
+msgid "Download whole folder"
+msgstr "Descargar carpeta completa"
+
+msgctxt "#40317"
+msgid "Scanning folder..."
+msgstr "Analizando carpeta..."
+
+msgctxt "#40318"
+msgid "{} files added to the download queue"
+msgstr "{} archivos añadidos a la cola de descargas"
+
+msgctxt "#40319"
+msgid "Refresh folder"
+msgstr "Refrescar carpeta"
+
+msgctxt "#40320"
+msgid "Folder cache cleared"
+msgstr "Caché de carpetas vaciada"
+
+msgctxt "#40321"
+msgid "New search..."
+msgstr "Nueva búsqueda..."
+
+msgctxt "#40322"
+msgid "Clear search history"
+msgstr "Borrar historial de búsquedas"
+
+msgctxt "#40323"
+msgid "Filters and sort..."
+msgstr "Filtros y orden..."
+
+msgctxt "#40324"
+msgid "Sort search results"
+msgstr "Ordenar resultados de búsqueda"
+
+msgctxt "#40325"
+msgid "Site order"
+msgstr "Orden del sitio"
+
+msgctxt "#40326"
+msgid "Size (largest first)"
+msgstr "Tamaño (mayor primero)"
+
+msgctxt "#40327"
+msgid "Size (smallest first)"
+msgstr "Tamaño (menor primero)"
+
+msgctxt "#40328"
+msgid "Name (A-Z)"
+msgstr "Nombre (A-Z)"
+
+msgctxt "#40329"
+msgid "Minimum size in MB (0 = no limit)"
+msgstr "Tamaño mínimo en MB (0 = sin límite)"
+
+msgctxt "#40330"
+msgid "Maximum size in MB (0 = no limit)"
+msgstr "Tamaño máximo en MB (0 = sin límite)"
+
+msgctxt "#40331"
+msgid "Search history cleared"
+msgstr "Historial de búsquedas borrado"
+
+msgctxt "#40332"
+msgid "Resume playback?"
+msgstr "¿Reanudar la reproducción?"
+
+msgctxt "#40333"
+msgid "Resume from {}"
+msgstr "Reanudar desde {}"
+
+msgctxt "#40334"
+msgid "Start from the beginning"
+msgstr "Empezar desde el principio"
+
+msgctxt "#40335"
+msgid "Connection test"
+msgstr "Prueba de conexión"
+
+msgctxt "#40336"
+msgid "Redacted log saved to: {}"
+msgstr "Registro redactado guardado en: {}"
+
+msgctxt "#40337"
+msgid "Export redacted log"
+msgstr "Exportar registro redactado"
+
+msgctxt "#40338"
+msgid "Server error ({}). Try again later."
+msgstr "Error del servidor ({}). Inténtalo más tarde."
+
+msgctxt "#40339"
+msgid "Too many requests. Wait a moment and retry."
+msgstr "Demasiadas peticiones. Espera un momento y reintenta."
+
+msgctxt "#40340"
+msgid "Connection timed out"
+msgstr "Tiempo de espera agotado"
+
+msgctxt "#40341"
+msgid "No network connection"
+msgstr "Sin conexión de red"
+
+msgctxt "#40342"
+msgid "Session expired, signing in again..."
+msgstr "Sesión caducada, iniciando sesión de nuevo..."
+
+msgctxt "#40343"
+msgid "Not enough free disk space"
+msgstr "No hay espacio libre suficiente en disco"
+
+msgctxt "#40344"
+msgid "Pause all"
+msgstr "Pausar todas"
+
+msgctxt "#40345"
+msgid "Resume all"
+msgstr "Reanudar todas"
+
+msgctxt "#40346"
+msgid "Search filters saved"
+msgstr "Filtros de búsqueda guardados"
+
+msgctxt "#40347"
+msgid "Access denied (HTTP {})"
+msgstr "Acceso denegado (HTTP {})"
+
+msgctxt "#40348"
+msgid "Not found (HTTP 404)"
+msgstr "No encontrado (HTTP 404)"
+
+msgctxt "#40349"
+msgid "Transfer limit reached on this account"
+msgstr "Se alcanzó el límite de transferencia de esta cuenta"
+
+msgctxt "#40350"
+msgid "Cache and performance"
+msgstr "Caché y rendimiento"
+
+msgctxt "#40351"
+msgid "Folder cache duration in minutes (0 = off)"
+msgstr "Duración de la caché de carpetas en minutos (0 = desactivada)"
+
+msgctxt "#40352"
+msgid "Prefetch next page in the background"
+msgstr "Precargar la página siguiente en segundo plano"
+
+msgctxt "#40353"
+msgid "Clear folder cache now"
+msgstr "Vaciar ahora la caché de carpetas"
+
+msgctxt "#40354"
+msgid "Metadata"
+msgstr "Metadatos"
+
+msgctxt "#40355"
+msgid "Parse titles from file names (year, season, episode)"
+msgstr "Interpretar títulos desde el nombre del archivo (año, temporada, episodio)"
+
+msgctxt "#40356"
+msgid "TMDb API key (optional: posters and plots)"
+msgstr "Clave API de TMDb (opcional: pósters y sinopsis)"
+
+msgctxt "#40357"
+msgid "Metadata language (for example es-ES)"
+msgstr "Idioma de metadatos (por ejemplo es-ES)"
+
+msgctxt "#40359"
+msgid "Simultaneous downloads"
+msgstr "Descargas simultáneas"
+
+msgctxt "#40360"
+msgid "Playback"
+msgstr "Reproducción"
+
+msgctxt "#40361"
+msgid "Remember playback position and watched state"
+msgstr "Recordar posición de reproducción y estado de visto"
+
+msgctxt "#40362"
+msgid "Ask before resuming"
+msgstr "Preguntar antes de reanudar"
+
+msgctxt "#40363"
+msgid "Normalize names (Title (Year), Show - S01E02)"
+msgstr "Normalizar nombres (Título (Año), Serie - S01E02)"
+
+msgctxt "#40364"
+msgid "Write .nfo files next to each STRM"
+msgstr "Escribir archivos .nfo junto a cada STRM"
+
+msgctxt "#40365"
+msgid "Remove STRM files whose source disappeared"
+msgstr "Eliminar los STRM cuyo origen ya no existe"
+
+msgctxt "#40366"
+msgid "Update the Kodi library after generating STRM"
+msgstr "Actualizar la biblioteca de Kodi tras generar STRM"
+
+msgctxt "#40367"
+msgid "Search history size (0 = off)"
+msgstr "Tamaño del historial de búsquedas (0 = desactivado)"
+
+msgctxt "#40369"
+msgid "Tools"
+msgstr "Herramientas"
+
+msgctxt "#40371"
+msgid "STRM: {} new, {} updated, {} unchanged, {} removed"
+msgstr "STRM: {} nuevos, {} actualizados, {} sin cambios, {} eliminados"
+
+msgctxt "#40372"
+msgid "Accounts and sessions"
+msgstr "Cuentas y sesiones"
+
+msgctxt "#40373"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "#40380"
+msgid "Network"
+msgstr "Red"
+
+msgctxt "#40381"
+msgid "Active account"
+msgstr "Cuenta activa"
+
+msgctxt "#40382"
+msgid "Login"
+msgstr "Inicio de sesión"
+
+msgctxt "#40383"
+msgid "Session"
+msgstr "Sesión"
+
+msgctxt "#40384"
+msgid "Download queue"
+msgstr "Cola de descargas"
+
+msgctxt "#40385"
+msgid "Folder cache"
+msgstr "Caché de carpetas"
+
+msgctxt "#40386"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#40387"
+msgid "FAILED"
+msgstr "FALLO"
+
+msgctxt "#40388"
+msgid "none"
+msgstr "ninguna"
+
+msgctxt "#40389"
+msgid "Versions"
+msgstr "Versiones"
+
+msgctxt "#50030"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "#50031"
+msgid "File Extension"
+msgstr "Extensión del archivo"
+
+msgctxt "#50032"
+msgid "Size"
+msgstr "Tamaño"
+
+msgctxt "#50033"
+msgid "Added to"
+msgstr "Fecha"
+
+msgctxt "#40390"
+msgid "TMDb API key"
+msgstr "Clave API de TMDb"
+
+msgctxt "#40391"
+msgid "TMDb key saved"
+msgstr "Clave de TMDb guardada"
+
+msgctxt "#40392"
+msgid "TMDb key removed"
+msgstr "Clave de TMDb eliminada"
+
+msgctxt "#40395"
+msgid "Indexing your account (folders and subfolders)..."
+msgstr "Indexando tu cuenta (carpetas y subcarpetas)..."
+
+msgctxt "#40396"
+msgid "{} files, {} folders found"
+msgstr "{} archivos, {} carpetas encontrados"
+
+msgctxt "#40397"
+msgid "Indexing canceled"
+msgstr "Indexación cancelada"
+
+msgctxt "#40398"
+msgid "No results for: {}"
+msgstr "Sin resultados para: {}"
+
+msgctxt "#40399"
+msgid "Update index (rescan my account)"
+msgstr "Actualizar índice (volver a recorrer mi cuenta)"
+
+msgctxt "#40400"
+msgid "Index updated: {} items"
+msgstr "Índice actualizado: {} elementos"
+
+msgctxt "#40401"
+msgid "Settings"
+msgstr "Configuración"

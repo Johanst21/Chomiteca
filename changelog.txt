@@ -1,0 +1,315 @@
+[B]v1.11.3:[/B]
+- NUEVO Las carpetas que son plataformas (Netflix, HBO Max, Disney +, Prime Video...) muestran el logo de la plataforma (lista de TMDb "watch providers" de tu región, caché de 30 días).
+
+[B]v1.11.2:[/B]
+- NUEVO Los capítulos muestran el póster de su temporada (detectada del nombre, p. ej. S04E08 -> temporada 4); si TMDb no tiene póster de esa temporada, el de la serie.
+
+[B]v1.11.1:[/B]
+- CAMBIO Carátulas/sinopsis en carpetas solo si son "Nombre (Año)" y en sus carpetas de temporada; las carpetas organizadoras (Netflix, HBO Max, Uploaded, Privado...) ya no llevan.
+- ARREGLO Capítulos y películas (.mkv): la precarga de TMDb detecta el vídeo aunque el título no lleve extensión; el capítulo muestra su propia sinopsis (y miniatura) en vez de la de la serie.
+- CAMBIO Menú contextual "Generar archivos .strm" (sin "(recursivo)"). La opción "Configuración" del menú usa una cadena nueva.
+- NUEVO Ajustes > Metadatos: botón "Clave API de TMDb" que abre el teclado, además del campo de texto.
+
+[B]v1.11.0:[/B]
+- ARREGLO Los STRM (y los de "Añadir a la biblioteca") usan el nombre real de Chomikuj: carpetas "The Witcher (2019)" y archivos "The Witcher S04E08 [NF WEB-DL 2160p HEVC DV-HDR10 ES DD+ Atmos 5.1][HDO].strm" (antes "The-Witcher-2019").
+- ARREGLO Accesos directos: error al abrirlos (argumento "atalhos" incorrecto).
+- NUEVO Buscar contenido recorre las carpetas y subcarpetas de la cuenta activa (índice local reutilizable 6 h, "Actualizar índice").
+- NUEVO Pósters, sinopsis y año de TMDb en carpetas de series, temporadas y películas, además de capítulos y películas (la precarga ya no descarta nombres sin extensión).
+- CAMBIO Menú: eliminados "Ir a una cuenta", "Usuarios recientes" y "Clave API de TMDb" (la clave está en Ajustes > Metadatos). "Cambiar la configuración" pasa a "Configuración" y "Diagnóstico" a "Prueba de conexión" (penúltimo, encima de "Eliminar cookies").
+
+[B]v1.10.2:[/B]
+- NUEVO Entrada "Clave API de TMDb" en el menú principal: pide la clave con el teclado y la guarda (alternativa a los ajustes).
+
+[B]v1.10.1:[/B]
+- ARREGLO Los nombres de archivo se muestran exactamente como están en Chomikuj (antes la skin mostraba un título recortado en el año y con "+", p. ej. "Buscando+a+Dory+").
+- ARREGLO El parser de metadatos trata "+" como espacio (mejora también la búsqueda en TMDb y los nombres STRM normalizados).
+
+[B]v1.10.0:[/B]
+- NUEVO Caché de carpetas (SQLite, TTL configurable, por cuenta) y precarga en segundo plano de la página siguiente; "Refrescar carpeta" en el menú contextual.
+- NUEVO Cola de descargas persistente (servicio): varias a la vez, pausa/reanudar/cancelar/reintentar, reanudación con Range, comprobación de espacio, "Descargar carpeta completa".
+- NUEVO Búsqueda: historial, filtros de tamaño y orden configurable (sitio, tamaño, nombre).
+- ARREGLO La búsqueda principal nunca se ejecutaba en la 1.8.2 (se descartaba el texto escrito).
+- NUEVO Metadatos desde el nombre del archivo (título, año, temporada, episodio) y, opcionalmente, TMDb (póster, sinopsis).
+- NUEVO Reanudar reproducción y marca de visto (también barra de progreso en skins que usen ResumeTime/TotalTime).
+- NUEVO STRM incremental: no reescribe lo que no cambió, nombres normalizados ("Título (Año)", "Serie - S01E02"), .nfo opcional, limpieza de huérfanos y actualización de biblioteca opcional.
+- NUEVO Red: reintentos con backoff y jitter, mensajes específicos (429, 5xx, 403, timeout, sin conexión) y relogin automático.
+- NUEVO Diagnóstico (prueba de conexión/sesión) y exportación de registro redactado.
+- Ajustes migrados al formato nuevo de Kodi (settings v1) con categorías nuevas.
+- Código dividido en módulos (common, ui, listing, search, playback, downloads, library, tools...) con estado por invocación (state.py); preparado para reuselanguageinvoker.
+- Descargas: la descarga de imágenes y de ficheros usa el selector de carpeta correcto (antes era el de imágenes).
+- Eliminado el antiguo downloader.py (sustituido por la cola).
+
+[B]v1.9.0 (revisión Kodi 22 / Python 3.14):[/B]
+- Seguridad: la cookie de sesión solo se envía a *.chomikuj.pl y solo con las cookies del dominio; el log redacta cookies, tokens, contraseñas y la query de los enlaces temporales; accounts.json con escritura atómica y permisos 0600 (donde el SO lo permita); sin pickle (JSON).
+- Reproducción: todos los caminos cierran el handle con setResolvedUrl (audio e imágenes incluidos); endOfDirectory una sola vez; setContentLookup(False) para no gastar el enlace temporal; reintento con relogin si la sesión caduca; las playlists resuelven cada enlace al reproducirlo.
+- API Kodi 22: InfoTagVideo/InfoTagMusic en vez de ListItem.setInfo; xbmcvfs.translatePath; sin LOGNOTICE ni replaceItems; Dialog().ok/yesno/DialogProgress.update con la firma nueva; Dialog().notification en vez de executebuiltin(Notification(...)).
+- Descargas: ya no se abre el enlace dos veces; download() devuelve True al lanzar; las imágenes se bajan de forma síncrona antes de mostrarlas.
+- Traducciones: carpetas resource.language.en_gb / es_es; inglés completado (faltaban 132 cadenas).
+- Ajustes: declarados download-folder y youtube_api_key (se leían pero no existían).
+- El calentamiento de sesión pasa a un servicio (una vez al iniciar Kodi) en lugar de ejecutarse en cada invocación.
+- Subtítulos: faltaban imports (re, xbmcvfs); OpenSubtitles.org anunció el cierre de su API XML-RPC en 2026, la función puede no responder.
+- Empaquetado: sin .pyc, finales de línea LF, addon.xml sin marcadores "...".
+
+[B]v1.8.2 (June 01, 2025):[/B]
+- Critical Library Integration Fixes: Addressed critical errors, including timeouts (Timeout was reached(28)) and playback failures, when launching content from the Kodi library (via .strm files), especially when   managed by addons like Jellyfin.
+     - Resolved an InvalidURL error by implementing robust URL encoding for paths passed from external sources, which often contain unescaped characters like spaces.
+     - Rearchitected the external playback flow (play_from_outside) to resolve and immediately pass the final, temporary playback URL directly to Kodi's player using setResolvedUrl. This crucial change prevents the link from expiring due to delays introduced by intermediary addons, which was identified as the root cause of the frequent timeout errors.
+- Proactive Connection Warm-up: Implemented a new start-up routine (warm_up_connection) that performs a lightweight, proactive network request upon addon initialization. This "warms up" the network connection to Chomikuj's servers, drastically reducing the "cold start" latency and making the first playback initiated in a session feel as responsive as subsequent ones.
+- UI & Visual Enhancements: Minor adjustments have been made to font colors and other visual elements throughout the addon's interface for improved readability and a more polished, consistent user experience.
+
+[B]v1.8.1 (May 28, 2025):[/B]
+- Login and Account Management Refactoring: Login logic and the availability of account-dependent features are now centrally managed via the main menu's "Manage Accounts" options. Global user variables (username_setting_global_ref, usernameURL_global_ref) are dynamically updated when selecting/changing the active account or upon addon startup. Improved workflow for adding new accounts and setting them as active.
+- Playback Start-Time Optimization: Addressed an issue causing significant delays when initiating playback, especially when launched from integrations like Jellyfin. Optimization focuses on ensuring Kodi processes the addon-resolved URL more efficiently, reducing latency between URL resolution and the actual stream startup. (Note: External factors like Kodi library scans or Chomikuj server speed may still have an impact.)
+- Enhanced .strm File Generation: Fixed an issue that prevented the creation of .strm files within subfolders during the first run of the "Generate .strm files for library" feature. Improved the robustness of creating nested directories on the local filesystem using xbmcvfs, including additional checks and fallbacks to ensure the folder structure is correctly created before generating .strm files. Resolved an `AttributeError` related to `DialogProgressBG.iscanceled()` and unified user cancellation detection via `xbmc.Monitor().abortRequested()`. Verified and corrected the definition order of helper functions to prevent `NameError` during .strm generation.
+- Full Spanish Translation: User interface and notification translations to Spanish have been reviewed and completed, utilizing Kodi's localized string system.
+- Minor Bug Fixes and General Improvements: Fixed several minor bugs reported and found during development. Improved pagination logic for within-account searches. Enhanced logging for easier debugging. Refined the handling of `ChomikName` and `__RequestVerificationToken` retrieval in different search scenarios. Adjustments in `addDir` and `addCont` functions for more consistent name and URL handling.
+
+[B]v1.8.0 (May 20, 2025):[/B]
+- Added support for multiple accounts.
+- Default browse path for "Generate .strm files" now starts at the OS root/user home directory for easier network navigation.
+- Verified playback using Jellyfin for Kodi and Emby for Kodi addons (Jellycon and Embycon do not work due to an error in those addons).
+- Minor bug fixes.
+
+[B]v1.7.7 (May 9, 2025):[/B]
+- Scraping now processes all files in a folder, removing the previous 30-file limit.
+
+[B]v1.7.6 (May 8, 2025):[/B]
+- Tested on Kodi 21.2 (Android: arm64v8, arm32v7; Linux: Manjaro).
+- Fixed playback errors.
+- General code cleanup and debugging.
+- Modified scraping process: use "Generate .strm files" option from context menu after long-pressing the target folder, then select the "generar.txt" file.
+
+[B]v1.7.5 beta (May 7, 2025):[/B]
+- Enabled playback of .strm files generated by addon scraping.
+
+[B]v1.7.2 beta (May 6, 2025):[/B]
+- Tested on Android (Kodi 21.2 arm64v8, Kodi 21.2 arm32v7) and Linux (Manjaro).
+- Enabled scraping for a folder and all its subfolders from the Chomiteca addon.
+- Note: Playback of .strm files generated by addon scraping is not yet functional.
+- Scraping initiated by creating a "generar.txt" file and selecting it after long-pressing the target folder.
+
+B]v1.7.1 beta (May 5, 2025):[/B]
+- Added "Next Page" and "Previous Page" buttons for folder navigation.
+- Implemented alphabetical sorting (A-Z) for files within folders.
+- Scraping functionality remains under development (planned for folder and subfolder scraping).
+
+[B]v1.7.0 beta (May 3, 2025):[/B]
+- Adapted for Kodi 19+ (Python 3).
+- Based on the Kodi 18.9 addon (v1.6.8 Beta5).
+- Initial functionality includes: Login access to Chomikuj account folders. Video playback from the Chomiteca addon. Integration with Jellyfin addon (Jellycon and Emby not tested).
+- Note: Scraping, folder page navigation, and some file context menu options are not yet functional in this version.
+
+[B]v1.6.8 Beta5 (Jan 8, 2025):[/B]
+- Updated the user agent to the latest available version of microsoft edge on January 8, 2025.
+- Added button in the addon main menu to delete cookies in case of failure when trying to browse chomikuj folders.
+
+[B]v1.6.8 Beta4 (Nov 25, 2023):[/B]
+- Updated the user agent to the latest available version of microsoft edge on November 17, 2023.
+- The login system has been slightly modified, now when you enter the addon does not generate a new cookie if there is already one and it is valid, avoiding to generate cookies every time you enter the addon to explore your folders.
+
+[B]v1.6.8 Beta3 (Jul 16, 2023):[/B]
+- Improved detection of file extensions, "</span>" should no longer appear between the extension and the file name.
+- Removed the function of uploading thumbnails from an external server.
+- Modified translations of hide images and subtitles, when enabled it hides image and subtitle files when browsing chomikuj folders.
+
+[B]v1.6.8 Beta2 (Jun 26, 2023):[/B]
+- Moved the Library Batch options to the "Library" section of the addon configuration.
+- Modified the option to remove the year in TVShow titles, now it can be enabled or disabled in the addon settings and no longer shows any confirmation message.
+- Modified the translation of "TVShow Library Batch" and "Movie Library Batch". 
+- Added to the addon configuration to keep the movie title.
+
+[B]v1.6.8 Beta1 (Jun 18, 2023):[/B]
+- Modified the saving method of the shortcuts and playlist function (this last one is used by the scraper to get the urls and titles), now it is saved in a database instead of `.txt` files.
+- Translations for "add_to_library_batch" and "add_to_library" list (Add to library - Batch and Add to library )
+- Moved the "Next" button at the top of the list to change page in the folder.
+- Modified the function "add_to_library_batch" to read the playlist from the database and once read and passed to the function "add_to_library" clears the playlist from the database.
+- Added just in case a "unescape" so that there are no problems with strange passwords.
+
+[B]v1.6.7 Beta3 (Jun 11, 2023):[/B]
+- Added translation strings to the script "downloader.py".
+- Fixed notification translation when adding a shortcut
+- Added notification when removing a shortcut
+
+[B]v1.6.7 Beta2 (Jun 9, 2023):[/B]
+- Minor modifications in some functions to improve the use of kodi 18.9 (although I don't think it will be noticeable when using the addon)
+- Now next to the user name when browsing your account or someone else's, if it exceeds 1024 gb it will be displayed in TB.
+- Small fixes to the movie and series scraper
+     - Now the scraper will ask if you want to delete the year of the series e.g. Series (2022) = Series.
+     - Fixed a bug that removed the last character when scraping series.
+     - Now the series scraper will remove double spaces and change them to single space.
+     - The function "add library" in the part that cleaned the movies with a regex has been put the condition of if it is type "movie" to avoid that it sneaks when choosing TVShow, it should work like this.
+- Translations for the messages when asking for the season number and for asking whether or not to delete the year in the series.
+
+[B]v1.6.6 (Jun 4, 2023):[/B]
+- Added a larger dictionary (exactly 1257 more characters) for html decimal characters, now characters like Ñ are seen in folders and files.
+- Modified the loading dialog when playing a file, now it's less annoying.
+- Added icon for .epub files
+- I jumped error in the function of shortcuts, I don't know if it was already of before but it is fixed.
+- The function "downloader.py" now uses "dialogProgress" instead of "dialogProgressBG", this adds the possibility to cancel the download.
+
+[B]v1.6.5 (May 22, 2023):[/B]
+- Fixed the file search feature, although it's still not possible to navigate through pages when displaying search results.
+- When displaying the user ranking, now their respective profile pictures are shown.
+- The function used to display the file order in Chomikuj has been fixed and now works correctly.
+- Optimized a large part of the code with OpenAI
+- Improved playback when using .strm files in kodi, now saves progress, and uses metadata that is in the kodi database.
+- Fixed a bug that when playing a movie or tvshow the subtitles did not work.
+- The "trackplayer" function of the script is removed.
+- The "internalPlayer.py" file has been removed, it is no longer needed.
+- New icon and fanart
+- Now if in the title of the series you can't find the season number, an input will appear to tell you which season it is.
+- Using the unicodedata library for the "replace_special_char_extra" function, it seems to work better.
+- Added the import "unicodedata".
+- Minor code and indentation improvements
+
+[B]v1.6.4 (January 15, 2023):[/B]
+- Changed the icons to more modern ones 
+- Added detection of MKV and EXE files to show their respective icons.
+- Fixed the Download script that was throwing ASCII character error (it was missing # -*- coding: utf-8 -*- at the beginning of the downloader.py script)
+- Added Spanish language
+
+[B]v1.6.3 (January 12, 2020):[/B]
+- Compatible with .m2ts
+
+[B]v1.6.2 (December 31, 2019):[/B]
+- Correction of file names
+
+[B]v1.6.1 (December 14, 2019):[/B]
+- Correction of file names
+
+[B]v1.6.0 (May 30, 2019):[/B]
+- Removal of Minhateca
+
+[B]v1.5.0 (March 26, 2018):[/B]
+- Correction of BUG in Chomikuj that prevented opening videos
+
+[B]v1.4.0 (March 15, 2017):[/B]
+- Improvements in .strm (Thks Luhan Silvério)
+
+[B]v1.3.9 (March 15, 2017):[/B]
+- Slight improvements
+
+[B]v1.3.8 (March 05, 2017):[/B]
+- Refactor in the language files, as the current method was deprecated
+
+[B]v1.3.7 (March 05, 2017):[/B]
+- Fixed .strm creation bug (Thks MustangBolt)
+
+[B]v1.3.6 (February 11, 2017):[/B]
+- Bug in certain characters in .strm corrected (Thks Luhan Silvério)
+- Playlist improvement
+
+[B]v1.3.5 (February 10, 2017):[/B]
+- Bug when adding certain contents to the library resolved (Thks Luhan Silvério)
+- Improvement when saving the names of .strm files (Thks Luhan Silvério)
+- Three new options added that will allow us to save the .strm as we like
+
+[B]v1.3.0 (08 Feb 2017):[/B]
+- Accenting of file names is now fully resolved
+- Bug in .strm file folders (Thks Luhan Silvério)
+- Improvement when adding contents to the library in Batch mode, it became automatic
+- Bug in Hide Subtitles and Hide Images fixed (Thks JesusTiag0)
+
+[B]v1.2.3 (January 06, 2017):[/B]
+- Correction of file sizes in certain cases
+
+[B]v1.2.2 (January 06, 2017):[/B]
+- Correction of the Bug of the Pages
+- Correction in the accentuation of the names of the files
+- Bug correction when using files outside the private folder (Thks pedroamorim)
+
+[B]v1.2.1 (November 04, 2016):[/B]
+- Fix applied in 1.1.8 caused research bug which is now fully resolved
+- Other Bugs fixed (Thks pedroamorim)
+
+[B]v1.2.0 (November 04, 2016):[/B]
+- Added Option to Hide Subtitles
+
+[B]v1.1.9 (November 4, 2016):[/B]
+- Added Option to Hide Images
+
+[B]v1.1.8 (November 04, 2016):[/B]
+- Bug due to ascii characters fixed
+
+[B]v1.1.7 (November 03, 2016):[/B]
+- Bug due to new image server functionality fixed
+- Added Images Option via Local Path
+
+>> How to use the new features?
+-- To use the new functionalities, just put the address of the server folder that will allocate the cover images.
+-- Example: dropbox.com/s/codigodapastaxpto/ or omeserver.com/imagens/
+-- Or in the case of Local Path, just activate the option and place the images in: %AppData%\Kodi\addons\plugin.video.chomiteca\resources\covers\
+
+[B]v1.1.6 (November 03, 2016):[/B]
+- Bug in extensions fixed
+- Chomikuj bug fixed
+- Pages bug fixed
+- Added Personal Image Server Option
+
+[B]v1.1.5.2 (June 09, 2016):[/B]
+- Bug in extensions fixed
+
+[B]v1.1.5.1 (June 08, 2016):[/B]
+- Correction in the regular expression meuteca
+
+[B]v1.1.5 (June 05, 2016):[/B]
+- Removal of Bees/Lolabits/Toutbox.
+- Correction of Minhateca
+- Added Chomikuj
+- Refactor sites and language files
+- Fully multi-language
+- Added new Logo (ty Starlight)
+- Writing correction (ty BlackSpirits)
+- New icons added (ty BlackSpirits)
+
+[B]v1.1.4 (December 25, 2015):[/B]
+- Small fixes.
+
+[B]v1.1.3 (December 23, 2015):[/B] (ty enen92)
+- Fixdownload.
+- New download manager.
+
+[B]v1.1.2 (December 13, 2015):[/B] (ty Mafarricos)
+- Cookies fix
+- fix quantity of context menu
+
+[B]v1.1.0-beta010 (June 20, 2015):[/B]
+- add video clips to library
+
+[B]v1.1.0-beta006 (June 18, 2015):[/B]
+- mark as watched from library list: (ty gb160)
+- fix favorite next page
+
+[B]v1.1.0-beta005 (June 18, 2015):[/B]
+bees improvement: better usage of portuguese chars
+
+[B]v1.1.0-beta003 (June 15, 2015):[/B]
+- Summarize option.
+
+[B]v1.1.0-beta002 (June 15, 2015):[/B]
+- Search returns unique results in combination of name+size.
+
+[B]v1.1.0-beta001 (June 14, 2015):[/B]
+- Improvement when addon called from outside:
+- If you choose Folder in the addon, the video will open immediately (with better quality depending on the options);
+- If Dialog option gives option to choose quality.
+
+[B]v1.1.0 (June 14, 2015):[/B]
+Update by Mafarricos!
+- Thumbnails of bees for movies and photos;
+- Redone code;
+- Toutbox, lolabits and my library added;
+- Addition to the library;
+- Trailer updated with the new youtube api;
+- Create remade playlist;
+- Play from outside redone (simpler integration);
+- Options to search sorting by size;
+- Search with minimum and maximum value of MB;
+- Options to order the contents of folders as in bees.
+
+[B]v1.0.1 (April 5, 2015):[/B]
+Addon in update.
+- Fix create playlist (tks Leinad4Mind).
+
+[B]v1.0.0 (March 26, 2015):[/B]
+- Updated the new site structure (tks Leinad4Mind)
