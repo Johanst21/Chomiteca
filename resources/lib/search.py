@@ -140,8 +140,8 @@ def _load_index(username):
 
 
 def _build_index(username):
-    """Recorre toda la cuenta (carpetas, subcarpetas y páginas). Devuelve None si el usuario cancela."""
-    from resources.lib.library import walk_folder_files
+    """Recorre toda la cuenta (carpetas, subcarpetas y páginas). Devuelve None si el usuario cancela o el escaneo es incompleto."""
+    from resources.lib.library import walk_folder_files, WalkIncomplete
     root = MainURL + urllib.parse.quote(username)
     progress = xbmcgui.DialogProgress()
     progress.create(traducao(40011), strings.t(40395))
@@ -155,14 +155,18 @@ def _build_index(username):
         except Exception: pass
 
     try:
-        for entry in walk_folder_files(root, on_page, include_folders=True):
-            if state['cancel'] or progress.iscanceled(): state['cancel'] = True; break
-            if entry.get('is_dir'):
-                state['dirs'] += 1
-                items.append(['d', entry['title'], '', entry['url'], '', entry['rel_dir']])
-            else:
-                state['files'] += 1
-                items.append(['f', entry['title'], entry['ext'], entry['url'], entry['size'], entry['rel_dir']])
+        try:
+            for entry in walk_folder_files(root, on_page, include_folders=True):
+                if state['cancel'] or progress.iscanceled(): state['cancel'] = True; break
+                if entry.get('is_dir'):
+                    state['dirs'] += 1
+                    items.append(['d', entry['title'], '', entry['url'], '', entry['rel_dir']])
+                else:
+                    state['files'] += 1
+                    items.append(['f', entry['title'], entry['ext'], entry['url'], entry['size'], entry['rel_dir']])
+        except WalkIncomplete:
+            k.log("Search: indexación incompleta; no se persiste el índice", xbmc.LOGWARNING)
+            return None
     finally:
         progress.close()
     if state['cancel']: return None
