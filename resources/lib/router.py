@@ -7,6 +7,7 @@ import xbmc
 
 from . import auth, kodiutils as k, player, playstate, resolver
 from .session import make_session
+from .textutils import real_title
 
 
 def _parse(argv):
@@ -42,7 +43,7 @@ def play_mode(handle, params):
         wants_subs = k.get_bool("subtitles") and not k.get_bool("legendas-disable")
         if kind == "audio" or (kind == "video" and not wants_subs):
             key = playstate.key_for(page_url)
-            label = title or page_url.rsplit("/", 1)[-1]
+            label = real_title(title) or page_url.rsplit("/", 1)[-1]
             offset = playstate.choose_resume(key, label)  # se pregunta ANTES de resolver: el enlace caduca
             return player.play(handle, _get_link(page_url), label, kind, key=key, offset=offset)
         # imágenes, vídeo con subtítulos y tipos desconocidos: lógica completa en browse
