@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Sesión HTTP con cookie jar propio (sin install_opener global)."""
 import gzip
+import http.client
 import os
 import random
 import socket
@@ -114,13 +115,18 @@ class Session:
                 enc = (resp.headers.get("Content-Encoding") or "").lower()
         except urllib.error.HTTPError as exc:
             raise HttpError(exc.code, exc.read()[:2000]) from exc
-        if enc == "gzip":
-            raw = gzip.decompress(raw)
-        elif enc == "deflate":
-            try:
-                raw = zlib.decompress(raw)
-            except zlib.error:
-                raw = zlib.decompress(raw, -zlib.MAX_WBITS)
+        except (http.client.HTTPException, EOFError, zlib.error) as exc:
+            raise OSError("Fallo de lectura/descompresión de red: %r" % exc) from exc
+        try:
+            if enc == "gzip":
+                raw = gzip.decompress(raw)
+            elif enc == "deflate":
+                try:
+                    raw = zlib.decompress(raw)
+                except zlib.error:
+                    raw = zlib.decompress(raw, -zlib.MAX_WBITS)
+        except (http.client.HTTPException, EOFError, zlib.error) as exc:
+            raise OSError("Fallo de lectura/descompresión de red: %r" % exc) from exc
         return raw
 
     def cookie_header_for(self, url):
