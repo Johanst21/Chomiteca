@@ -19,10 +19,24 @@ CHUNK = 256 * 1024
 ACTIVE = ("queued", "downloading", "paused")
 
 
-def safe_name(name, default="file"):
+class DiskFull(Exception):
+    """Error terminal: no hay espacio en disco. No reintentar."""
+    pass
+
+
+def safe_name(name, default="file", max_len=150):
+    if not name:
+        return default
     name = re.sub(r"\[/?(?:COLOR|B|I)[^\]]*\]", "", str(name))
     name = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "_", name).strip(" .")
-    return (name[:150] if len(name) > 150 else name) or default
+    if not name:
+        return default
+    stem, ext = os.path.splitext(name)
+    budget = max_len - len(ext)
+    if budget < 1:
+        budget = 1
+    stem = stem[:budget]
+    return (stem + ext) or default
 
 
 def enqueue(page_url, title, dest_root, rel_dir=""):
@@ -161,7 +175,21 @@ def _download_one(download_id, monitor):
             headers = dict(link.headers)
             if have:
                 headers["Range"] = "bytes=%d-" % have
-            with urllib.request.urlopen(urllib.request.Request(link.url, headers=headers), timeout=30) as resp:
+            try:
+                resp_cm = urllib.request.urlopen(urllib.request.Request(link.url, headers=headers), timeout=30)
+            except urllib.error.HTTPError as exc:
+                if exc.code == 416 and have > 0:
+                    try:
+                        os.remove(part)
+                    except FileNotFoundError:
+                        pass
+                    k.log("Download: 416 con .part existente; se reinicia desde cero: %s" % link.url, xbmc.LOGWARNING)
+                    have = 0
+                    headers.pop("Range", None)
+                    resp_cm = urllib.request.urlopen(urllib.request.Request(link.url, headers=headers), timeout=30)
+                else:
+                    raise
+            with resp_cm as resp:
                 status = getattr(resp, "status", 200)
                 length = int(resp.headers.get("Content-Length") or 0)
                 if have and status == 206:
@@ -172,7 +200,7 @@ def _download_one(download_id, monitor):
                     probe = os.path.dirname(dest) if os.path.isdir(os.path.dirname(dest)) else os.path.expanduser("~")
                     try:
                         if "://" not in dest and shutil.disk_usage(probe).free < (total - have) + 50 * 1024 * 1024:
-                            raise OSError(strings.t(40343))
+                            raise DiskFull(strings.t(40343))
                     except FileNotFoundError:
                         pass
                 sink = _Sink(part, resume_from=have > 0)
@@ -201,14 +229,25 @@ def _download_one(download_id, monitor):
             _set(download_id, status="done", done=done, total=max(total, done), error=None)
             k.log("Download finished: %s" % os.path.basename(dest))
             return
+        except DiskFull as exc:
+            k.log("Download: disco lleno, abortando sin reintentar: %s" % exc, xbmc.LOGERROR)
+            _set(download_id, status="error", error=str(exc)[:200])
+            return
         except resolver.ResolveError as exc:
             _set(download_id, status="error", error=str(exc)[:200])  # no se arregla reintentando
             return
         except urllib.error.HTTPError as exc:
             last_error = strings.t(40349) if exc.code in (402, 429) else "HTTP %s" % exc.code
-            if exc.code in (401, 403, 404, 410, 402):
+            if exc.code in (401, 403, 404, 410, 402, 416):
                 break
-        except (OSError, urllib.error.URLError) as exc:
+        except OSError as exc:
+            import errno
+            if exc.errno == errno.ENOSPC:
+                k.log("Download: disco lleno, abortando sin reintentar: %s" % exc, xbmc.LOGERROR)
+                _set(download_id, status="error", error=str(exc)[:200])
+                return
+            last_error = str(exc)
+        except urllib.error.URLError as exc:
             last_error = str(exc)
         if attempt < 2 and monitor.waitForAbort(2 * (2 ** attempt) * (0.5 + random.random())):
             return
