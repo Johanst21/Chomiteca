@@ -93,18 +93,19 @@ xbmcvfs.delete = MagicMock(return_value=True)
 xbmcaddon = MagicMock()
 
 class StubAddon:
+    _shared_settings = {}
+
     def __init__(self, id=None):
         self.id = id or "plugin.video.chomiteca"
-        self._settings = {}
 
     def getSetting(self, key):
-        return self._settings.get(key, "")
+        return self._shared_settings.get(key, "")
 
     def setSetting(self, key, value):
-        self._settings[key] = str(value)
+        self._shared_settings[key] = str(value)
 
     def getLocalizedString(self, id):
-        return str(id)
+        return ""
 
     def getAddonInfo(self, name):
         if name == "id":

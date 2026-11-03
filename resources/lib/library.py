@@ -22,6 +22,11 @@ from resources.lib import state as st
 from resources.lib.common import DIALOG_MESSAGE, MONITOR, MainURL, _get_db_connection, abrir_url_cookie, addon_id, clean, clean_folder, clean_title, get_active_account_details, notify, real_fs_name, real_title, returnValues, savefile, selfAddon, traducao, try_create_folder
 
 
+class WalkIncomplete(Exception):
+    """Lanzada cuando walk_folder_files no puede completar el recorrido de una carpeta o página."""
+    pass
+
+
 def add_to_library_opt(name_param, url_param):
     options = [traducao(40150), traducao(40151), traducao(40152)]
     mapping = {traducao(40150): "movie", traducao(40151): "tvshow", traducao(40152): "musicvideo"}
@@ -346,7 +351,7 @@ def walk_folder_files(initial_url, progress_cb=None, include_folders=False):
             seen_pages.add(page)
             if progress_cb: progress_cb(rel, page)
             body = abrir_url_cookie(page, erro=False)  # sin caché: se quiere el estado real
-            if not body: break
+            if not body: raise WalkIncomplete(page)
             text_page = clean(body.decode('utf-8', 'ignore'))
             sitebase, _, color, _ = returnValues(page)
             sitebase = sitebase or MainURL
@@ -434,34 +439,39 @@ def create_strm_files_recursive_chomiteca(initial_chomikuj_url, base_output_dir,
         k.log(f"STRM index unavailable: {e}", xbmc.LOGWARNING); indexed = {}
 
     aborted = False
-    for entry in walk_folder_files(initial_chomikuj_url, progress):
-        if MONITOR.abortRequested(): aborted = True; break
-        folder = os.path.join(base_output_dir, entry['rel_dir'])
-        if not _ensure_dir(folder):
-            k.log(f"STRM Gen: cannot create directory {folder}", xbmc.LOGWARNING); continue
-        base = _strm_basename(entry, normalize, used_names.setdefault(folder, set()))
-        if not base: continue
-        path = os.path.join(folder, f"{base}.strm")
-        content = f"plugin://{addon_id}/?url={urllib.parse.quote_plus(entry['url'])}&mode=25&name={urllib.parse.quote_plus(real_title(entry['title'] + entry['ext']))}"
-        seen_paths.add(path)
-        state['files'] += 1
-        if indexed.get(path) == content and xbmcvfs.exists(path):
-            stats['same'] += 1
-        elif _write_text(path, content):
-            stats['updated' if path in indexed else 'new'] += 1
-            try:
-                with store.db() as c:
-                    c.execute("INSERT OR REPLACE INTO strm_index(path, url, root, ts) VALUES (?,?,?,?)", (path, content, root_key, _time.time()))
-            except Exception as e: k.log(f"STRM index write failed: {e}", xbmc.LOGWARNING)
-        else:
-            k.log(f"STRM Gen: failed to save {path}", xbmc.LOGWARNING); continue
-        if write_nfo:
-            nfo = _nfo_for(entry)
-            nfo_path = os.path.join(folder, f"{base}.nfo")
-            if nfo and not xbmcvfs.exists(nfo_path):
-                _write_text(nfo_path, f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<{nfo[0]}>{nfo[1]}</{nfo[0]}>\n')
+    complete = True
+    try:
+        for entry in walk_folder_files(initial_chomikuj_url, progress):
+            if MONITOR.abortRequested(): aborted = True; break
+            folder = os.path.join(base_output_dir, entry['rel_dir'])
+            if not _ensure_dir(folder):
+                k.log(f"STRM Gen: cannot create directory {folder}", xbmc.LOGWARNING); continue
+            base = _strm_basename(entry, normalize, used_names.setdefault(folder, set()))
+            if not base: continue
+            path = os.path.join(folder, f"{base}.strm")
+            content = f"plugin://{addon_id}/?url={urllib.parse.quote_plus(entry['url'])}&mode=25&name={urllib.parse.quote_plus(real_title(entry['title'] + entry['ext']))}"
+            seen_paths.add(path)
+            state['files'] += 1
+            if indexed.get(path) == content and xbmcvfs.exists(path):
+                stats['same'] += 1
+            elif _write_text(path, content):
+                stats['updated' if path in indexed else 'new'] += 1
+                try:
+                    with store.db() as c:
+                        c.execute("INSERT OR REPLACE INTO strm_index(path, url, root, ts) VALUES (?,?,?,?)", (path, content, root_key, _time.time()))
+                except Exception as e: k.log(f"STRM index write failed: {e}", xbmc.LOGWARNING)
+            else:
+                k.log(f"STRM Gen: failed to save {path}", xbmc.LOGWARNING); continue
+            if write_nfo:
+                nfo = _nfo_for(entry)
+                nfo_path = os.path.join(folder, f"{base}.nfo")
+                if nfo and not xbmcvfs.exists(nfo_path):
+                    _write_text(nfo_path, f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<{nfo[0]}>{nfo[1]}</{nfo[0]}>\n')
+    except WalkIncomplete as exc:
+        complete = False
+        k.log("STRM: escaneo incompleto en página %s; se omite la poda" % exc, xbmc.LOGWARNING)
 
-    if prune and not aborted and not MONITOR.abortRequested():
+    if prune and complete and not aborted and not MONITOR.abortRequested() and len(seen_paths) >= 0.5 * len(indexed):
         for stale in [p for p in indexed if p not in seen_paths]:
             xbmcvfs.delete(stale)
             nfo_stale = os.path.splitext(stale)[0] + ".nfo"
@@ -470,6 +480,8 @@ def create_strm_files_recursive_chomiteca(initial_chomikuj_url, base_output_dir,
             try:
                 with store.db() as c: c.execute("DELETE FROM strm_index WHERE path=?", (stale,))
             except Exception: pass
+    elif prune:
+        k.log("STRM: poda omitida (complete=%s, seen=%d, indexed=%d)" % (complete, len(seen_paths), len(indexed)), xbmc.LOGWARNING)
 
     summary = strings.t(40371).format(stats['new'], stats['updated'], stats['same'], stats['removed'])
     if dialog_prog:

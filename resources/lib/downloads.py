@@ -79,16 +79,24 @@ def download_folder(url_param, name_param):
         if dialog:
             try: dialog.update(50, strings.t(40317), f"{rel or '/'} | {count['n']}")
             except Exception: pass
+    incomplete = False
     try:
-        for entry in walk_folder_files(url_param, progress):
-            fname = _download_filename(entry['title'] + entry['ext'], entry['url'])
-            dq.enqueue(entry['url'], fname, dest_root, os.path.join(root_name, entry['rel_dir']))
-            count['n'] += 1
+        try:
+            for entry in walk_folder_files(url_param, progress):
+                fname = _download_filename(entry['title'] + entry['ext'], entry['url'])
+                dq.enqueue(entry['url'], fname, dest_root, os.path.join(root_name, entry['rel_dir']))
+                count['n'] += 1
+        except WalkIncomplete as exc:
+            incomplete = True
+            k.log("Downloads: carpeta escaneada parcialmente; se encolan %d archivos" % count['n'], xbmc.LOGWARNING)
     finally:
         if dialog:
             try: dialog.close()
             except Exception: pass
-    notify(strings.t(40318).format(count['n']))
+    if incomplete:
+        notify(strings.t(40318).format(count['n']) + " (parcial)")
+    else:
+        notify(strings.t(40318).format(count['n']))
 
 
 def _fmt_mb(n): return f"{n / 1048576:.1f}"
@@ -129,4 +137,4 @@ def downloads_action(p):
 
 
 # Importaciones entre módulos de funciones al final: así las referencias circulares son seguras
-from resources.lib.library import walk_folder_files
+from resources.lib.library import walk_folder_files, WalkIncomplete
