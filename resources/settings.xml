@@ -5,7 +5,7 @@
       <group id="1">
         <setting id="download-folder" type="path" label="30040">
           <level>0</level>
-          <default></default>
+          <default> </default>
           <constraints>
             <writable>true</writable>
           </constraints>
@@ -27,7 +27,7 @@
         </setting>
         <setting id="youtube_api_key" type="string" label="30041">
           <level>0</level>
-          <default></default>
+          <default> </default>
           <control type="edit" format="string">
             <heading>30041</heading>
           </control>
@@ -83,7 +83,7 @@
         </setting>
         <setting id="ultima-pesquisa" type="string" label="30009">
           <level>4</level>
-          <default></default>
+          <default> </default>
           <control type="edit" format="string">
             <heading>30009</heading>
           </control>
@@ -281,7 +281,7 @@
         </setting>
         <setting id="tmdb_api_key" type="string" label="40356">
           <level>0</level>
-          <default></default>
+          <default> </default>
           <control type="edit" format="string">
             <heading>40356</heading>
           </control>
@@ -529,7 +529,7 @@
         </setting>
         <setting id="strm_default_browse_path" type="string" label="30180">
           <level>4</level>
-          <default></default>
+          <default> </default>
           <control type="edit" format="string">
             <heading>30180</heading>
           </control>
@@ -561,7 +561,7 @@
         </setting>
         <setting id="active_account_id" type="string" label="40373">
           <level>4</level>
-          <default></default>
+          <default>0</default>
           <control type="edit" format="string">
             <heading>40373</heading>
           </control>
