@@ -19,6 +19,7 @@ from resources.lib import downloadqueue as dq
 from resources.lib.session import make_session, describe_error, backoff
 from resources.lib import state as st
 from resources.lib import accounts as accounts_store
+from resources.lib.textutils import real_title  # noqa: F401 (reexport)
 
 
 # ---- constantes ----
@@ -334,9 +335,6 @@ def clean_title(title):
 
 
 _BBCODE = re.compile(r'\[/?(?:B|I|CR|UPPERCASE|LOWERCASE|CAPITALIZE|LIGHT)\]|\[/?COLOR[^\]]*\]', re.IGNORECASE)
-
-
-from .textutils import real_title  # noqa: F401 (reexport)
 
 
 def real_fs_name(text, max_len=180):
