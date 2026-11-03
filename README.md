@@ -33,6 +33,33 @@ Personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4
 3. Select the downloaded ZIP file.
 4. Wait for the add-on enabled notification.
 
+## Cambios respecto al upstream
+
+Ver [CHANGELOG.md](CHANGELOG.md).
+
+### 1.13.0 (esta release)
+
+- **F03:** PlayerMonitor no contamina la siguiente reproducción tras un fallo.
+- **F04:** servicio robusto ante excepciones; warm-up no bloquea el cierre de Kodi.
+- **F05:** Session reintenta `IncompleteRead`/`EOFError`/`zlib.error`.
+- **F06:** búsqueda local pliega `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
+- **F08:** descargas robustas (416, extensión, disco lleno).
+- **F09:** título de reproducción limpio (sin BBCode, sin `default_title`, sin pérdida de unicode).
+- **F11:** settings.xml sin defaults vacíos (log limpio).
+
+### 1.12.0
+
+- **F02 (crítico):** la poda de STRM y el índice de búsqueda ya no se ejecutan si el escaneo se interrumpe.
+
+### Pendiente para 1.14.0
+
+- F10: `clean()` con comillas (requiere fixtures HTML).
+- Limpieza menor documentada en CHANGELOG.
+
+## Estado del proyecto
+
+Fork en desarrollo activo. La 1.13.0 cierra los bugs críticos y altos identificados en la revisión del código original. Pendiente para 1.14.0: F10 (requiere fixtures HTML) y limpieza menor.
+
 ## Development & Testing
 
 Run unit tests locally using `pytest`:
