@@ -18,6 +18,7 @@ from resources.lib import cache as cache_mod, metadata, playstate, store
 from resources.lib import downloadqueue as dq
 from resources.lib.session import make_session, describe_error, backoff
 from resources.lib import state as st
+from resources.lib.textutils import real_title
 
 from resources.lib.common import DIALOG_MESSAGE, KODI_PLAYER, abrir_url, clean_title, login, nameURL, notify, pastaperfil, selfAddon, traducao
 
@@ -112,6 +113,7 @@ def handle_resolved(link, url_param, display_name, playterm=False):
     ext = player.ext_of(url_param)
     kind = player.kind_of(ext)
     clean_display_name = clean_title(display_name)
+    shown_title = real_title(display_name)
     if kind == "image":
         if playterm == "download":
             fazerdownload(display_name, url_param)
@@ -146,7 +148,7 @@ def handle_resolved(link, url_param, display_name, playterm=False):
                 sub_path = SubtitlesMod.getsubtitles(clean_display_name, selfAddon.getSetting('sublang1'), selfAddon.getSetting('sublang2'))
             except Exception as sub_e:
                 k.log(f"Subtitles unavailable: {sub_e}", xbmc.LOGWARNING)
-        _play(link, clean_display_name or traducao(40067), kind, sub_path)
+        _play(link, shown_title or traducao(40067), kind, sub_path)
     else:
         if playterm == "download":
             fazerdownload(display_name, url_param)

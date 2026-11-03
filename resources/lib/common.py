@@ -336,16 +336,7 @@ def clean_title(title):
 _BBCODE = re.compile(r'\[/?(?:B|I|CR|UPPERCASE|LOWERCASE|CAPITALIZE|LIGHT)\]|\[/?COLOR[^\]]*\]', re.IGNORECASE)
 
 
-def real_title(text):
-    """Nombre tal cual está en Chomikuj: solo quita etiquetas de Kodi/HTML y entidades. Conserva espacios, corchetes, paréntesis, + y acentos."""
-    try:
-        text = text if isinstance(text, str) else str(text)
-        text = _BBCODE.sub('', text)
-        text = re.sub(r'<[^>]+>', '', html.unescape(text))
-        return re.sub(r'\s+', ' ', text).strip()
-    except Exception as e:
-        st.addon.log_warning(f"Error in real_title '{text}': {e}")
-        return text
+from .textutils import real_title  # noqa: F401 (reexport)
 
 
 def real_fs_name(text, max_len=180):
