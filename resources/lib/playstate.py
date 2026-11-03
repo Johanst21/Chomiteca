@@ -16,6 +16,19 @@ _PROP_KEY = "chomiteca.nowplaying"
 _PROP_OFFSET = "chomiteca.startoffset"
 
 
+def _parse_mark(raw, now, max_age=90):
+    if not raw or not isinstance(raw, str) or "|" not in raw:
+        return None
+    clave, _, ts = raw.partition("|")
+    try:
+        ts_val = int(ts)
+    except (ValueError, TypeError):
+        return None
+    if now - ts_val > max_age:
+        return None
+    return clave
+
+
 def enabled():
     return (k.ADDON.getSetting("remember_progress") or "true") == "true"
 
@@ -73,7 +86,7 @@ def mark_playing(key, offset=0):
     if not enabled() or not key:
         return
     win = xbmcgui.Window(10000)
-    win.setProperty(_PROP_KEY, key)
+    win.setProperty(_PROP_KEY, "%s|%d" % (key, int(time.time())))
     win.setProperty(_PROP_OFFSET, str(int(offset or 0)))
 
 
@@ -103,10 +116,21 @@ class PlayerMonitor(xbmc.Player):
 
     def onAVStarted(self):
         win = xbmcgui.Window(10000)
-        key = win.getProperty(_PROP_KEY)
+        raw = win.getProperty(_PROP_KEY)
+        key = _parse_mark(raw, time.time())
         if not key:
             self.key = None
+            win.clearProperty(_PROP_KEY)
+            win.clearProperty(_PROP_OFFSET)
+            k.log("PlayerMonitor: marca descartada (caducada o formato inválido)", xbmc.LOGDEBUG)
             return
+        if "chomikuj" not in (self.getPlayingFile() or ""):
+            self.key = None
+            win.clearProperty(_PROP_KEY)
+            win.clearProperty(_PROP_OFFSET)
+            k.log("PlayerMonitor: marca descartada (fichero no chomikuj)", xbmc.LOGDEBUG)
+            return
+
         self._offset = int(float(win.getProperty(_PROP_OFFSET) or 0))
         win.clearProperty(_PROP_KEY)
         win.clearProperty(_PROP_OFFSET)
@@ -118,6 +142,13 @@ class PlayerMonitor(xbmc.Player):
                 self.seekTime(self._offset)  # por si Kodi ignoró StartOffset
         except Exception as exc:
             k.log("PlayerMonitor.onAVStarted: %s" % exc, xbmc.LOGDEBUG)
+
+    def onPlayBackError(self):
+        self.key = None
+        win = xbmcgui.Window(10000)
+        win.clearProperty(_PROP_KEY)
+        win.clearProperty(_PROP_OFFSET)
+        k.log("PlayerMonitor: limpieza por error de reproducción", xbmc.LOGDEBUG)
 
     def tick(self):
         if self.key and self.isPlaying():
