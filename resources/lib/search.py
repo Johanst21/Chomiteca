@@ -117,8 +117,18 @@ def _search_type_options():
 _INDEX_TTL = 6 * 3600  # el índice de la cuenta se reutiliza 6 horas (o hasta "Actualizar índice")
 
 
+_FOLD = str.maketrans({
+    "ł": "l", "Ł": "L",
+    "đ": "d", "Đ": "D",
+    "ø": "o", "Ø": "O",
+    "ß": "ss",
+    "æ": "ae", "œ": "oe",
+})
+
+
 def _norm(text):
-    text = unicodedata.normalize('NFKD', text or '')
+    text = (text or "").translate(_FOLD)
+    text = unicodedata.normalize('NFKD', text)
     text = ''.join(ch for ch in text if not unicodedata.combining(ch)).lower()
     return re.sub(r'[^a-z0-9]+', ' ', text).strip()
 
