@@ -1,8 +1,17 @@
-# Chomiteca (fork)
+# Chomiteca
 
-A personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4Mind-Kodi-Addons-Repo/tree/master/plugin.video.chomiteca) by Leinad4Mind.
+<p align="center">
+  <img src="icon.png" alt="Chomiteca Logo" width="200"/>
+</p>
 
-This fork focuses on critical bug fixes, robustness improvements, data loss prevention, and modern Kodi 21 (Omega) compatibility. **It is not an official release** and is not affiliated with or endorsed by the original author or Chomikuj.pl.
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
+  <a href="https://github.com/johanst21/chomiteca/releases/tag/v1.12.0"><img src="https://img.shields.io/badge/Release-v1.12.0-green.svg" alt="Release v1.12.0"></a>
+</p>
+
+A Kodi video/audio add-on for browsing, streaming, and managing content from Chomikuj.pl.
+
+Personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4Mind-Kodi-Addons-Repo/tree/master/plugin.video.chomiteca) by Leinad4Mind, focusing on critical bug fixes, robustness improvements, data loss prevention, and modern Kodi 21 (Omega) compatibility. **It is not an official release** and is not affiliated with or endorsed by the original author or Chomikuj.pl.
 
 ## Features
 
