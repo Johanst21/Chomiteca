@@ -150,6 +150,8 @@ Regla: no empieces el siguiente bloque sin revisar el diff del anterior.
   - [ ] Log claro (`LOGWARNING`) cuando se omite la poda.
 - **Cómo verificar a mano (si aplica):** Activa `strm_prune`, genera STRM de una carpeta, desactiva la red a mitad de una segunda generación y confirma que los `.strm` siguen en disco y que el log explica que se omitió la poda.
 - **Riesgos / notas:** Una carpeta realmente vacía en origen dará recuento 0 y tampoco podará (comportamiento conservador aceptado). Los tres consumidores del walker deben tratarse en el mismo commit.
+
+**Nota de implementación (2026-11-03):** `search._build_index` devuelve `None` y loguea warning cuando hay escaneo incompleto, pero no llama a `notify`. Si el caller no muestra mensaje específico, el usuario puede ver "0 resultados" sin saber que fue un fallo de red. Revisar cuando se toque `search.py` de nuevo (F06 o limpieza posterior).
 - **Estado:** [ ]
 
 ---
