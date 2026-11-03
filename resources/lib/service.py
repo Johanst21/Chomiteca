@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """Servicio de Kodi: calentamiento de sesión, cola de descargas y seguimiento de reproducción."""
+import threading
 import xbmc
 
 from . import accounts, auth, downloadqueue, kodiutils as k, playstate
 from .session import make_session
+
+_warm_up_started = False
 
 
 def _warm_up():
@@ -20,16 +23,28 @@ def _warm_up():
         k.log("Login inicial fallido: %s" % exc, xbmc.LOGWARNING)
 
 
+def _warm_up_safe():
+    try:
+        _warm_up()
+    except Exception as exc:
+        k.log("_warm_up: %r" % exc, xbmc.LOGERROR)
+
+
 def run():
+    global _warm_up_started
     monitor = xbmc.Monitor()
     player = playstate.PlayerMonitor()
     manager = None
     ticks = 0
     while not monitor.waitForAbort(1):
-        ticks += 1
-        player.tick()
-        if ticks == 15:  # no competir con el arranque de Kodi
-            _warm_up()
-            manager = downloadqueue.Manager(monitor)
-        if manager is not None and ticks % 2 == 0:
-            manager.tick()
+        try:
+            ticks += 1
+            player.tick()
+            if ticks >= 15 and not _warm_up_started:
+                _warm_up_started = True
+                threading.Thread(target=_warm_up_safe, daemon=True, name="ChomitecaWarmUp").start()
+                manager = downloadqueue.Manager(monitor)
+            if manager is not None and ticks % 2 == 0:
+                manager.tick()
+        except Exception as exc:
+            k.log("service tick: %r" % exc, xbmc.LOGERROR)
