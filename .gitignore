@@ -4,3 +4,12 @@ __pycache__/
 .pytest_cache/
 *.zip
 _review_staging/
+venv/
+cookies.lwp
+accounts.json
+*.db
+search_index_*.json
+temp.txt
+*.log
+.vscode/
+.idea/

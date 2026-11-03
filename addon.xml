@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.chomiteca"
        name="Chomiteca"
-       version="1.11.3"
+       version="1.12.0"
        provider-name="Johanst21, DeciBelioS/keannu, Leinad4Mind">
     <requires>
         <import addon="xbmc.python" version="3.0.1"/>
@@ -21,6 +21,6 @@
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>
-        <news>v1.11.3: logos de plataformas (Netflix, HBO Max...) como carátula de carpeta.</news>
+        <news>v1.12.0: fix crítico de poda de STRM</news>
     </extension>
 </addon>
