@@ -20,13 +20,13 @@
 | ID | Título | Gravedad | Archivos | Esfuerzo | Depende de | Estado |
 |---|---|---|---|---|---|---|
 | F00 | Arnés de tests con stubs de Kodi | infraestructura | `tests/`, `tests/conftest.py`, `pytest.ini`, `requirements-dev.txt`, `.gitignore` | S | ninguno | [ ] |
-| F01 | [diag] Nombres de cookie antes/después de `LoginToFolder` | alto | `session.py`, `listing.py` | S | F00 | [ ] |
+| F01 | [diag] Nombres de cookie antes/después de `LoginToFolder` | alto | `session.py`, `listing.py` | S | F00 | cancelado (A1 no reproducible) |
 | F02 | Guardia de poda de STRM e índice parcial | crítico | `library.py`, `search.py`, `downloads.py` | M | F00 | [ ] |
 | F03 | `PlayerMonitor` con estado por reproducción y `onPlayBackError` | alto | `playstate.py` | S | F00 | [ ] |
 | F04 | Servicio endurecido (try/except por tick, `_warm_up` en hilo) | alto | `resources/lib/service.py` | S | F00 (mejor tras F05) | [ ] |
 | F05 | Mapeo de excepciones de red en `Session._request_once` | medio | `session.py` | S | F00 | [ ] |
 | F06 | `_norm` con plegado de `ł Ł đ Đ ø Ø ß æ œ` | medio | `search.py`, `common.py` (condicional) | S | F00 | [ ] |
-| F07 | Persistir cookies de `Session` y enrutar login de carpeta por ella | alto | `session.py`, `listing.py`, `favorites.py`, `search.py`, `common.py` | M | F01, F05 | [ ] bloqueado por diagnóstico |
+| F07 | Persistir cookies de `Session` y enrutar login de carpeta por ella | alto | `session.py`, `listing.py`, `favorites.py`, `search.py`, `common.py` | M | F01, F05 | cancelado (dependía de F01) |
 | F08 | Descargas: 416, extensión conservada, disco lleno terminal | medio | `downloadqueue.py` | S | F00 | [ ] |
 | F09 | Títulos de reproducción reales y consistentes | medio | `router.py`, `playback.py`, `textutils.py` (nuevo), `common.py` | S | F00 | [ ] |
 | F10 | `clean()` sin romper atributos con comillas | medio | `common.py`, `listing.py`, `library.py` | M | F00 + fixtures HTML | [ ] bloqueado por fixtures |
@@ -38,21 +38,21 @@
 **Tanda 0 (bloqueante):**
 1. F00. Sin arnés de tests no se puede verificar ningún otro bloque.
 
-**Primera tanda (5 bloques, tras F00):**
-2. F01. Va primero porque necesita uso real en Kodi y su resultado decide F07. Déjalo corriendo mientras haces el resto.
-3. F02. Es el único riesgo de pérdida de datos.
-4. F05. Reduce las vías por las que el servicio muere (lo usa F04).
-5. F03.
-6. F04.
+**Primera tanda (4 bloques, tras F00):**
+2. F02. Es el único riesgo de pérdida de datos.
+3. F05. Reduce las vías por las que el servicio muere (lo usa F04).
+4. F03.
+5. F04.
+
+*(Nota: F01 y F07 han sido cancelados y no se ejecutan).*
 
 **Segunda tanda:**
-7. F06.
-8. F08.
-9. F09.
+6. F06.
+7. F08.
+8. F09.
 
 **Tercera tanda (con condiciones):**
-10. F07, solo si el resultado de F01 confirma el diagnóstico.
-11. F10, solo cuando existan los fixtures HTML.
+9. F10, solo cuando existan los fixtures HTML.
 
 Regla: no empieces el siguiente bloque sin revisar el diff del anterior.
 
@@ -60,7 +60,7 @@ Regla: no empieces el siguiente bloque sin revisar el diff del anterior.
 
 ## Diagnóstico previo obligatorio
 
-- **F01 [diag]:** instrumentación pura. Su resultado decide si F07 se ejecuta, se reformula o se cancela. Ningún fix de cookies va antes.
+*(No hay diagnósticos previos pendientes. F01 fue cancelado tras descartarse A1).*
 
 ---
 
@@ -118,7 +118,9 @@ Regla: no empieces el siguiente bloque sin revisar el diff del anterior.
   - Si tras el POST aparece un nombre nuevo y (con el log opcional) tras la recarga del fichero no está: **A1 confirmado, se ejecuta F07**.
   - Si no aparece ningún nombre nuevo: **A1 descartado como causa del bucle, F07 se cancela** y se abre otra investigación.
 - **Riesgos / notas:** Retirar la instrumentación (o bajarla a `LOGDEBUG`) al cerrar F07 o al cancelarlo.
-- **Estado:** [ ]
+- **Estado:** cancelado (A1 no reproducible)
+
+**Resultado del diagnóstico (2026-11-03):** Cancelado. El usuario confirma que en su uso real las carpetas protegidas (incluida una con folder password propia) no generan bucle de contraseña. A1 no reproducible. La instrumentación `[diag-cookies]` no se llegó a validar en Kodi por desincronización entre el repo (Linux) y el addon instalado (Windows). Se descarta la línea de trabajo.
 
 ---
 
@@ -283,7 +285,9 @@ Regla: no empieces el siguiente bloque sin revisar el diff del anterior.
   - **Bloqueado por diagnóstico:** no empezar sin el resultado de F01. Si F01 descarta A1, cancelar este bloque.
   - Es el bloque con más riesgo de la v1 porque toca 5 archivos. Si el diff supera ~150 líneas, hacer commits separados por módulo dentro de la misma rama.
   - Esto roza el límite de "cliente único" (fuera de alcance): no eliminar `net` ni unificar relogins.
-- **Estado:** [ ] (bloqueado)
+- **Estado:** cancelado (dependía de F01)
+
+**Resultado:** Cancelado. Dependía de F01, que se ha descartado. No se implementa el guardado atómico del jar ni el enrutado de `LoginToFolder` por `Session`. Si en el futuro se reproduce el bucle, reabrir como bloque nuevo.
 
 ---
 
