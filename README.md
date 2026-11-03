@@ -1,79 +1,48 @@
-# Chomiteca
+# Chomiteca (fork)
 
-<p align="center">
-  <img src="icon.png" alt="Chomiteca Logo" width="200"/>
-</p>
+Personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4Mind-Kodi-Addons-Repo/tree/master/plugin.video.chomiteca) by Leinad4Mind.
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
-  <a href="https://github.com/johanst21/chomiteca/releases/tag/v1.12.0"><img src="https://img.shields.io/badge/Release-v1.12.0-green.svg" alt="Release v1.12.0"></a>
-</p>
-
-A Kodi video/audio add-on for browsing, streaming, and managing content from Chomikuj.pl.
-
-Personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4Mind-Kodi-Addons-Repo/tree/master/plugin.video.chomiteca) by Leinad4Mind, focusing on critical bug fixes, robustness improvements, data loss prevention, and modern Kodi 21 (Omega) compatibility. **It is not an official release** and is not affiliated with or endorsed by the original author or Chomikuj.pl.
-
-## Features
-
-- **Chomikuj.pl Browsing & Streaming**: Browse personal accounts, public folders, and play supported video and audio files directly in Kodi.
-- **Kodi Library Integration**: Generate `.strm` files and metadata (`.nfo`) to integrate remote files seamlessly into your Kodi library.
-- **Background Downloads**: Built-in queue manager for downloading media files with resume capability.
-- **Search & Local Indexing**: Search for files and accounts, with optimized caching for responsive lookups.
-- **Subtitle Integration**: Automatic and manual subtitle matching.
-
-## Compatibility
-
-- **Kodi**: Tested and supported on **Kodi 21 (Omega)** (Python 3).
-- **Platforms**: Cross-platform (Windows, Linux, Android, macOS).
-
-## Installation
-
-1. Download the release ZIP file (`plugin.video.chomiteca-x.x.x.zip`) from the [Releases](https://github.com/johanst21/chomiteca/releases) page.
-2. In Kodi, go to **Settings** → **Add-ons** → **Install from zip file**.
-3. Select the downloaded ZIP file.
-4. Wait for the add-on enabled notification.
-
-## Cambios respecto al upstream
-
-Ver [CHANGELOG.md](CHANGELOG.md).
-
-### 1.13.0 (esta release)
-
-- **F03:** PlayerMonitor no contamina la siguiente reproducción tras un fallo.
-- **F04:** servicio robusto ante excepciones; warm-up no bloquea el cierre de Kodi.
-- **F05:** Session reintenta `IncompleteRead`/`EOFError`/`zlib.error`.
-- **F06:** búsqueda local pliega `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
-- **F08:** descargas robustas (416, extensión, disco lleno).
-- **F09:** título de reproducción limpio (sin BBCode, sin `default_title`, sin pérdida de unicode).
-- **F11:** settings.xml sin defaults vacíos (log limpio).
-
-### 1.12.0
-
-- **F02 (crítico):** la poda de STRM y el índice de búsqueda ya no se ejecutan si el escaneo se interrumpe.
-
-### Pendiente para 1.14.0
-
-- F10: `clean()` con comillas (requiere fixtures HTML).
-- Limpieza menor documentada en CHANGELOG.
-
-## Estado del proyecto
-
-Fork en desarrollo activo. La 1.13.0 cierra los bugs críticos y altos identificados en la revisión del código original. Pendiente para 1.14.0: F10 (requiere fixtures HTML) y limpieza menor.
-
-## Development & Testing
-
-Run unit tests locally using `pytest`:
-
-```bash
-pytest -q
-```
-
-All core library logic is decoupled and testable using the provided test stubs.
+This fork includes bug fixes and robustness improvements. **It is not the official version** and is not endorsed by the original author.
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later). See [LICENSE](LICENSE) for the full license text.
+GPL-3.0-or-later. See [LICENSE](LICENSE).
+
+## Installation
+
+1. Download the ZIP from the [latest release](https://github.com/johanst21/chomiteca/releases/latest).
+2. In Kodi: **Settings → Add-ons → Install from zip file**.
+3. Select the downloaded ZIP.
+
+Compatible with Kodi 21 (Omega). Not tested on earlier versions.
+
+## Changes from upstream
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
+
+### 1.13.0 (current release)
+
+- **F03:** PlayerMonitor no longer carries over seek or progress from a failed playback to the next one.
+- **F04:** Service is robust against unexpected exceptions in a tick; warm-up runs in a daemon thread (no shutdown delay).
+- **F05:** Session retries `IncompleteRead` / `EOFError` / `zlib.error` as `OSError` with backoff.
+- **F06:** Local search folds `ł`, `Ł`, `đ`, `Đ`, `ø`, `Ø`, `ß`, `æ`, `œ` before NFKD. "lodz" finds "Łódź", "walesa" finds "Wałęsa".
+- **F08:** Downloads handle HTTP 416 (invalid `.part`), preserve extension on long names (>150 chars), and treat disk full as a terminal error without retries.
+- **F09:** Playback title without BBCode, HTML, size suffix, or `default_title` on both code paths.
+- **F11:** `settings.xml` without empty defaults. No more "error reading the default value" spam in Kodi 21 logs.
+
+### 1.12.0
+
+- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
+
+### Pending for 1.14.0
+
+- **F10:** `clean()` breaks attributes with `&quot;` before parsing (blocked by real Chomikuj HTML fixtures).
+- Minor cleanup documented in [CHANGELOG.md](CHANGELOG.md).
+
+## Project status
+
+Active development fork. 1.13.0 closes all critical and high-severity bugs identified in the original code review. Pending for 1.14.0: F10 (requires HTML fixtures) and minor cleanup.
 
 ## Disclaimer
 
-This add-on accesses Chomikuj.pl through web scraping and public interfaces. There is no official relationship with Chomikuj.pl or Leinad4Mind. Use at your own discretion and responsibility.
+This addon accesses Chomikuj.pl via scraping. There is no official relationship with Chomikuj.pl or with Leinad4Mind. Use at your own risk.
