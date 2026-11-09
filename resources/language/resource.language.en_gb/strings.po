@@ -1517,3 +1517,7 @@ msgctxt "#40414"
 msgid "Cookies expired or invalid. Reimport cookies from Accounts menu."
 msgstr "Cookies expired or invalid. Reimport cookies from Accounts menu."
 
+msgctxt "#40415"
+msgid "Search index could not be completed due to a network error. Try again later."
+msgstr "Search index could not be completed due to a network error. Try again later."
+

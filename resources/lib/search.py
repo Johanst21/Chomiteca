@@ -176,6 +176,7 @@ def _build_index(username):
                     items.append(['f', entry['title'], entry['ext'], entry['url'], entry['size'], entry['rel_dir']])
         except WalkIncomplete:
             k.log("Search: indexación incompleta; no se persiste el índice", xbmc.LOGWARNING)
+            notify(traducao(40415))
             return None
     finally:
         progress.close()
