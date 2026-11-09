@@ -144,18 +144,24 @@ def test_build_index_incomplete_does_not_write_json():
     """4. _build_index con walker incompleto no escribe JSON:
     Mockear walker que lanza WalkIncomplete.
     Mockear open para detectar escritura.
-    Verificar que no se escribió search_index_<user>.json y que _build_index devolvió None.
+    Verificar que no se escribió search_index_<user>.json, que notificó al usuario y que _build_index devolvió None.
     """
     def mock_walk(*args, **kwargs):
         yield {'is_dir': False, 'rel_dir': '', 'title': 'File1', 'ext': '.mp4', 'url': 'http://chomikuj.pl/f1', 'size': '1 MB'}
         raise WalkIncomplete(2)
 
+    mock_progress = MagicMock()
+    mock_progress.iscanceled.return_value = False
+
     with patch('resources.lib.library.walk_folder_files', side_effect=mock_walk), \
+         patch.object(xbmcgui, 'DialogProgress', return_value=mock_progress), \
+         patch('resources.lib.search.notify') as mock_notify, \
          patch('builtins.open', MagicMock()) as mock_file_open:
 
         res = search._build_index("testuser")
         assert res is None
         mock_file_open.assert_not_called()
+        mock_notify.assert_called_once()
 
 
 def test_download_folder_incomplete_does_not_raise():

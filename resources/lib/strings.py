@@ -131,6 +131,10 @@ STR = {
         "Cookies expired or invalid. Reimport cookies from Accounts menu.",
         "Cookies expiradas o inválidas. Reimporta cookies desde el menú Cuentas.",
     ),
+    40415: (
+        "Search index could not be completed due to a network error. Try again later.",
+        "El índice de búsqueda no se pudo completar por un error de red. Inténtalo más tarde.",
+    ),
 }
 
 

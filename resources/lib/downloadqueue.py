@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Cola de descargas persistente. El plugin encola; el servicio (Manager) descarga con reanudación."""
+import errno
 import os
 import random
 import re
@@ -241,7 +242,6 @@ def _download_one(download_id, monitor):
             if exc.code in (401, 403, 404, 410, 402, 416):
                 break
         except OSError as exc:
-            import errno
             if exc.errno == errno.ENOSPC:
                 k.log("Download: disco lleno, abortando sin reintentar: %s" % exc, xbmc.LOGERROR)
                 _set(download_id, status="error", error=str(exc)[:200])
