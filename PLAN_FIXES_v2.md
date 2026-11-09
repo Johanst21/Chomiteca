@@ -20,14 +20,18 @@
 
 ## Tabla resumen por versión
 
-### 1.14.0 — Hotfixes y seguridad (release rápida)
+### 1.14.0 — Hotfixes y seguridad — COMPLETADA (release: ver GitHub)
 
-| ID | Título | Gravedad | Archivos | Esfuerzo | Depende de | Estado |
-|---|---|---|---|---|---|---|
-| F27 | Paginación con URLs absolutas | alto (bug activo) | `listing.py` | S | ninguno | [ ] |
-| F22 | Importar cookies, no guardar contraseña | alto (seguridad) | `accounts_ui.py`, `accounts.py`, `common.py`, `settings.xml` | S | ninguno | [ ] |
-| F12 | `import errno` al bloque de imports | bajo | `downloadqueue.py` | XS | ninguno | [ ] |
-| F13 | `notify` en `search._build_index` | bajo | `search.py`, `strings.py`, `.po` (opcional) | XS | ninguno | [ ] |
+| ID | Título | Gravedad | Esfuerzo | Depende de | Estado |
+|---|---|---|---|---|---|
+| F27 | Paginación con URLs absolutas | alto (bug activo) | S | ninguno | [x] merged (391775c) |
+| F22a | Account model + store_password setting | alto (seguridad) | S | ninguno | [x] merged (85398c8) |
+| F22b | Cookie import helpers + verify_session | alto (seguridad) | M | F22a | [x] merged (20e0484) |
+| F22c | Cookie import UI + README | alto (seguridad) | M | F22b | [x] merged (0e86b53) |
+| F12 | `import errno` al bloque de imports | bajo | XS | ninguno | [x] merged (2b3b05b) |
+| F13 | `notify` en `search._build_index` | bajo | XS | ninguno | [x] merged (2b3b05b) |
+
+Nota: F22 se dividió en F22a/b/c durante la implementación para reducir riesgo. El tag de release `v1.14.0` se crea en el paso final de publicación.
 
 ### 1.14.1 — Scraping robusto
 

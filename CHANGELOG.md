@@ -4,6 +4,28 @@ All notable changes to this fork are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.14.0] - 2026-11-09
+
+### Fixed
+- **F27:** Pagination now handles the absolute URLs (`https://chomikuj.pl/...`) that Chomikuj actually returns, and ignores layout false positives (e.g. `uploadMinimalize right greenButton`). Next/Previous page buttons were non-functional before this fix.
+- **F22:** Option to authenticate via imported browser cookies instead of storing the Chomikuj password in plain text in `accounts.json`. New setting "Store password" (Settings → General) toggles the behavior. Cookie import supports both paste-string and Netscape `cookies.txt` file. Existing accounts with stored passwords continue to work unchanged.
+- **F12:** `import errno` moved to module imports in `downloadqueue` (cosmetic).
+- **F13:** User is now notified when the search index cannot be completed due to a network error, instead of silently showing "0 results".
+
+### Added
+- New string IDs 40403–40415 for the cookie import UI.
+- `Session.set_raw_cookie_string()` and `Session.import_mozilla_cookies()` helpers.
+- `auth.verify_session()` to validate cookies without raising on network errors.
+- `Session.request()` now accepts an optional `timeout=` kwarg.
+- Security & Authentication section in `README.md`.
+
+### Pending for 1.14.1
+- **F17:** Harden login/pagination regex against real Chomikuj HTML.
+- **F10:** `clean()` with `&quot;` (synthetic fixture; real Chomikuj rejects `"` in filenames).
+- **F15:** `temp.txt` contaminating pagination after global search.
+- **F18:** Low-priority cleanups (tools, subtitles, prefetch, state).
+- Known issue: "reimport cookies for non-active account" shows a generic login-failure warning before the import flow (noted for polish).
+
 ## [1.13.0] - 2026-11-03
 
 ### Fixed

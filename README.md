@@ -56,6 +56,34 @@ All core library logic is decoupled and testable using the provided test stubs.
 
 This project is licensed under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later). See [LICENSE](LICENSE) for the full license text.
 
+## Changes from upstream
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
+
+### 1.14.0 (current release)
+
+- **F27:** Pagination works with absolute URLs (was broken: "next page" did nothing).
+- **F22:** Option to authenticate via imported browser cookies instead of storing password in plain text.
+- **F12, F13:** Minor cleanups (import order, search error notification).
+
+### 1.13.0
+
+- **F03:** PlayerMonitor no longer carries over seek or progress from a failed playback to the next one.
+- **F04:** Service is robust against unexpected exceptions in a tick; warm-up runs in a daemon thread (no shutdown delay).
+- **F05:** Session retries `IncompleteRead` / `EOFError` / `zlib.error` as `OSError` with backoff.
+- **F06:** Local search folds `ł`, `Ł`, `đ`, `Đ`, `ø`, `Ø`, `ß`, `æ`, `œ` before NFKD. "lodz" finds "Łódź", "walesa" finds "Wałęsa".
+- **F08:** Downloads handle HTTP 416 (invalid `.part`), preserve extension on long names (>150 chars), and treat disk full as a terminal error without retries.
+- **F09:** Playback title without BBCode, HTML, size suffix, or `default_title` on both code paths.
+- **F11:** `settings.xml` without empty defaults. No more "error reading the default value" spam in Kodi 21 logs.
+
+### 1.12.0
+
+- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
+
+## Project status
+
+Active development fork. 1.14.0 closes the critical pagination bug and adds an opt-in cookie authentication method. Pending for 1.14.1: F17 (regex hardening), F10 (`clean` with `&quot;`), F15 (`temp.txt` pagination), F18 (low-priority cleanups). See [PLAN_FIXES_v2.md](PLAN_FIXES_v2.md).
+
 ## Disclaimer
 
 This add-on accesses Chomikuj.pl through web scraping and public interfaces. There is no official relationship with Chomikuj.pl or Leinad4Mind. Use at your own discretion and responsibility.
