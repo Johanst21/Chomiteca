@@ -260,7 +260,7 @@ def pesquisa():
 def proxpesquisa_ck_page():
     form_d = {}
     try:
-        loaded_data = st.addon.load_data('temp.txt')
+        loaded_data = {}
         if isinstance(loaded_data, dict) and 'Page' in loaded_data:
              form_d = loaded_data
              form_d["Page"] = int(form_d.get("Page", 0)) + 1
@@ -294,9 +294,6 @@ def proxpesquisa_ck_page():
          notify(traducao(40209).format(e), error=True)
          return
 
-    try: st.addon.save_data("temp.txt", form_d)
-    except Exception as e: k.log(f"Error saving updated temp search data: {e}", xbmc.LOGWARNING)
-    page_name = f"{traducao(40031)} {traducao(40062)} {form_d.get('Page', '?')}"
     placeholder_url = site_url + f'/action/SearchFiles/page{form_d.get("Page", "?")}'
     pastas(placeholder_url, page_name, conteudo=conteudo_bytes)
 

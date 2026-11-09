@@ -181,7 +181,6 @@ def pastas(url, name, formcont={}, conteudo=b'', past=False, deFora=False, lista
              if selfAddon.getSetting('activate-size') == 'true':
                  form_d_ajax['SizeFrom'] = selfAddon.getSetting('min-size')
                  form_d_ajax['SizeTo'] = selfAddon.getSetting('max-size')
-             st.addon.save_data('temp.txt', form_d_ajax)
              ref_data_ajax = {'Accept': '*/*', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': host, 'Origin': sitebase, 'Referer': url, 'User-Agent': user_agent, 'X-Requested-With': 'XMLHttpRequest'}
              ajax_results_url = sitebase + '/action/SearchFiles'
              k.log(f"Fetching search results page 1 via AJAX.", xbmc.LOGDEBUG)
@@ -546,7 +545,7 @@ def paginas(conteudo_text):
     icon_next = os.path.join(wtpath, art[1:], 'next.png')
     idmode = 3
 
-    if '/action/SearchFiles' in current_url_param or st.addon.load_data('temp.txt'):
+    if '/action/SearchFiles' in current_url_param:
         idmode_next = 24
     else:
         idmode_next = 3
