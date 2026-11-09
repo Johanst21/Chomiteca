@@ -41,28 +41,29 @@ See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
 ### 1.14.0 (current release)
 
-- **F15 (Critical):** Fixed folder pagination failing after a search (removed `temp.txt` dependency).
-- **F22:** Option to authenticate via imported browser cookies instead of storing password in plain text.
-- **F11, F12, F13:** Minor cleanups (settings defaults, import order, search error notification).
+- Fixed folder pagination failing after a search (removed `temp.txt` dependency).
+- Fixed pagination handling of absolute URLs and layout edge cases.
+- Option to authenticate via imported browser cookies instead of storing password in plain text.
+- Minor cleanups (settings defaults, import order, search error notification).
 
 ### 1.13.0
 
-- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
-- **F03:** PlayerMonitor no longer carries over seek or progress from a failed playback.
-- **F04:** Service is robust against unexpected exceptions; warm-up doesn't block Kodi shutdown.
-- **F05:** Session retries `IncompleteRead`/`EOFError`/`zlib.error`.
-- **F06:** Local search folds `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
-- **F08:** Robust downloads (HTTP 416, extension preservation, disk full as terminal error).
-- **F09:** Clean playback title (no BBCode, no `default_title`, no unicode loss).
+- STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
+- PlayerMonitor no longer carries over seek or progress from a failed playback.
+- Service is robust against unexpected exceptions; warm-up doesn't block Kodi shutdown.
+- Session retries `IncompleteRead`/`EOFError`/`zlib.error`.
+- Local search folds `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
+- Robust downloads (HTTP 416, extension preservation, disk full as terminal error).
+- Clean playback title (no BBCode, no `default_title`, no unicode loss).
 
 ### 1.12.0
 
-- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted.
+- STRM pruning and search index are no longer executed if the folder scan is interrupted.
 - Test harness with Kodi stubs.
 
 ## Project status
 
-Active development fork. 1.14.0 closes the pagination bug and adds an opt-in cookie authentication method. See [PLAN_FIXES_v2.md](PLAN_FIXES_v2.md) for the roadmap.
+Active development fork. 1.14.0 closes the pagination bug and adds an opt-in cookie authentication method.
 
 ## Disclaimer
 
