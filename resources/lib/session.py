@@ -87,12 +87,12 @@ class Session:
         except OSError:
             pass
 
-    def request(self, url, data=None, headers=None, retries=0):
+    def request(self, url, data=None, headers=None, retries=0, timeout=None):
         """GET (data=None) o POST (dict). Devuelve bytes; lanza HttpError en >=400.
         retries>0: reintenta (backoff + jitter) ante 429/5xx, timeouts y fallos de conexión."""
         for attempt in range(retries + 1):
             try:
-                return self._request_once(url, data, headers)
+                return self._request_once(url, data, headers, timeout=timeout)
             except HttpError as exc:
                 if exc.code not in RETRY_CODES or attempt == retries:
                     raise
@@ -103,15 +103,16 @@ class Session:
                 raise OSError("abort")
         raise OSError("unreachable")
 
-    def _request_once(self, url, data=None, headers=None):
+    def _request_once(self, url, data=None, headers=None, timeout=None):
         body = urllib.parse.urlencode(data).encode("utf-8") if data is not None else None
         hdrs = {"User-Agent": USER_AGENT, "Accept-Encoding": "gzip, deflate"}
         if body is not None:
             hdrs["Content-Type"] = "application/x-www-form-urlencoded"
         hdrs.update(headers or {})
         req = urllib.request.Request(url, data=body, headers=hdrs)
+        tout = self.timeout if timeout is None else timeout
         try:
-            with self._opener.open(req, timeout=self.timeout) as resp:
+            with self._opener.open(req, timeout=tout) as resp:
                 raw = resp.read()
                 enc = (resp.headers.get("Content-Encoding") or "").lower()
         except urllib.error.HTTPError as exc:

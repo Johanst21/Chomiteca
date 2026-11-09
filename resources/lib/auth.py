@@ -62,13 +62,6 @@ def verify_session(session, username=None, timeout=15):
     """
     try:
         resp = session.request("https://chomikuj.pl/", timeout=timeout)
-    except TypeError:
-        # In case session.request does not accept timeout keyword argument
-        try:
-            resp = session.request("https://chomikuj.pl/")
-        except Exception as exc:
-            k.log("verify_session: request failed: %r" % exc, xbmc.LOGWARNING)
-            return False
     except Exception as exc:
         k.log("verify_session: request failed: %r" % exc, xbmc.LOGWARNING)
         return False

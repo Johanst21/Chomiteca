@@ -41,3 +41,10 @@ def test_verify_session_empty_response(tmp_path):
 
     sess.request = MagicMock(return_value=None)
     assert auth.verify_session(sess) is False
+
+
+def test_verify_session_passes_timeout(tmp_path):
+    sess = Session(str(tmp_path / "c.lwp"))
+    sess.request = MagicMock(return_value=b'{"LoggedIn":true}')
+    auth.verify_session(sess, timeout=7)
+    sess.request.assert_called_once_with("https://chomikuj.pl/", timeout=7)
