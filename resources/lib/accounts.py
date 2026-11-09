@@ -14,7 +14,12 @@ def load():
     try:
         with open(ACCOUNTS_FILE, "r", encoding="utf-8") as fh:
             data = json.load(fh)
-        return data if isinstance(data, list) else []
+        if not isinstance(data, list):
+            return []
+        for acc in data:
+            if isinstance(acc, dict):
+                acc.setdefault("auth_method", "password")
+        return data
     except FileNotFoundError:
         return []
     except (OSError, ValueError) as exc:
@@ -31,13 +36,14 @@ def save(accounts):
     os.replace(tmp, ACCOUNTS_FILE)  # escritura atómica: no deja el JSON a medias
 
 
-def add(username, password, label=""):
+def add(username, password, label="", auth_method="password"):
     accounts = load()
     account = {
         "id": uuid.uuid4().hex,
         "username": username,
-        "password": password,
+        "password": "" if auth_method == "cookies" else password,
         "label": label or username,
+        "auth_method": auth_method,
     }
     accounts.append(account)
     save(accounts)

@@ -28,10 +28,21 @@ def add_new_account_ui():
     if not kb.isConfirmed() or not kb.getText(): return
     new_username = kb.getText()
 
-    kb = xbmc.Keyboard('', traducao(40089), hidden=True)
-    kb.doModal()
-    if not kb.isConfirmed() or not kb.getText(): return
-    new_password = kb.getText()
+    store_password_setting = k.ADDON.getSetting("store_password")
+    if store_password_setting == "":
+        store_password = True
+    else:
+        store_password = store_password_setting.lower() == "true"
+
+    if store_password:
+        kb = xbmc.Keyboard('', traducao(40089), hidden=True)
+        kb.doModal()
+        if not kb.isConfirmed() or not kb.getText(): return
+        new_password = kb.getText()
+        auth_method = "password"
+    else:
+        new_password = ""
+        auth_method = "cookies"
 
     kb = xbmc.Keyboard(new_username, traducao(40090))
     kb.doModal()
@@ -44,10 +55,18 @@ def add_new_account_ui():
             if not DIALOG_MESSAGE.yesno(traducao(40091), traducao(10105)):
                 return
             break
-    new_account_details = {"id": new_id, "username": new_username, "password": new_password, "label": new_label}
+    new_account_details = {
+        "id": new_id,
+        "username": new_username,
+        "password": new_password,
+        "label": new_label,
+        "auth_method": auth_method,
+    }
     accounts.append(new_account_details)
     if save_accounts(accounts):
         notify(traducao(40100).format(new_label))
+        if auth_method == "cookies":
+            notify("Account added. Reimport cookies to authenticate (F22c pending).")
         if len(accounts) == 1 or not selfAddon.getSetting('active_account_id'):
             set_active_account_and_relogin(new_id, account_details_provided=new_account_details)
         else:

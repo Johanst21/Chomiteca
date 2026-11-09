@@ -1464,3 +1464,8 @@ msgstr ""
 msgctxt "#40401"
 msgid "Settings"
 msgstr ""
+
+msgctxt "#40402"
+msgid "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead."
+msgstr "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead."
+

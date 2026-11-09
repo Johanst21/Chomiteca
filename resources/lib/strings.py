@@ -103,6 +103,10 @@ STR = {
     40371: ("STRM: {} new, {} updated, {} unchanged, {} removed", "STRM: {} nuevos, {} actualizados, {} sin cambios, {} eliminados"),
     40372: ("Accounts and sessions", "Cuentas y sesiones"),
     40373: ("Account", "Cuenta"),
+    40402: (
+        "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead.",
+        "Guardar contraseña en accounts.json (texto plano, inseguro en Windows/Android). Desactiva para usar autenticación por cookies.",
+    ),
 }
 
 
