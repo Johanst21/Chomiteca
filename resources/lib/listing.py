@@ -29,26 +29,33 @@ _PAGINATION_HREF_RE = re.compile(
 
 
 def _is_pagination_link(anchor_html, kind):
-    """Return True if anchor_html looks like a pagination link of `kind` ('prev' or 'next')."""
-    # Extract href
+    """Return True if anchor_html looks like a pagination link of `kind` ('prev' or 'next').
+
+    Matches the pre-F27 regex behavior (class OR rel, case-insensitive, substring match)
+    plus absolute URL support via _PAGINATION_HREF_RE.
+    """
     href_match = _PAGINATION_HREF_RE.search(anchor_html)
     if not href_match:
         return False
-    # Extract class (or id)
-    class_match = re.search(r'(?:class|id)=["\']([^"\']+)["\']', anchor_html)
-    if not class_match:
-        return False
-    classes = class_match.group(1).split()
+
+    class_match = re.search(r'(?:class|id)=["\']([^"\']+)["\']', anchor_html, re.IGNORECASE)
+    class_val = class_match.group(1).lower() if class_match else ""
+
+    rel_match = re.search(r'rel=["\']([^"\']+)["\']', anchor_html, re.IGNORECASE)
+    rel_val = rel_match.group(1).lower() if rel_match else ""
+
     if kind == "prev":
-        if not any(c in ("prev", "previous", "left") for c in classes):
-            return False
-    else:  # next
-        if not any(c in ("next", "right") for c in classes):
-            return False
-    # Defense in depth: require rel="N" (real pagination always has it)
-    if not re.search(r'rel=["\']\d+["\']', anchor_html):
+        if "prev" in class_val or "previous" in class_val or "left" in class_val:
+            return True
+        if rel_val in ("prev", "previous"):
+            return True
         return False
-    return True
+    else:  # next
+        if "next" in class_val or "right" in class_val:
+            return True
+        if rel_val == "next":
+            return True
+        return False
 
 
 def menu_principal(_):

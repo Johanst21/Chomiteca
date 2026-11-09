@@ -4,6 +4,15 @@ All notable changes to this fork are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.14.1] - 2026-11-09
+
+### Fixed
+- **F27c:** Pagination regression in F27. `_is_pagination_link()` was too strict (required numeric `rel`, case-sensitive class, word-boundary match), breaking pagination on real Chomikuj pages where `rel="next"`, uppercase class, or class-with-suffix are used. Fixed by matching the pre-F27 behavior (class OR rel, case-insensitive, substring) plus absolute URL support.
+
+### Notes
+- 1.14.0 was built internally but not released due to this regression.
+- 1.14.1 supersedes it.
+
 ## [1.14.0] - 2026-11-09
 
 ### Fixed

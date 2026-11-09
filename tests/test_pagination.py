@@ -77,3 +77,48 @@ def test_pagination_absolute_url_prev():
     call_args = calls[0][0]
     assert call_args[1] == 'https://chomikuj.pl/x/y,1'
     assert call_args[2] == 3
+
+
+def test_pagination_rel_next_text():
+    html = '<a href="https://chomikuj.pl/x/y,2" class="right" rel="next">następna</a>'
+    assert listing._is_pagination_link(html, "next") is True
+
+
+def test_pagination_class_uppercase():
+    html = '<a href="/x/y,2" class="RIGHT" rel="2">next</a>'
+    assert listing._is_pagination_link(html, "next") is True
+
+
+def test_pagination_class_substring():
+    html = '<a href="/x/y,2" class="paginatorNext">next</a>'
+    assert listing._is_pagination_link(html, "next") is True
+
+
+def test_pagination_class_only_no_rel():
+    html = '<a href="/x/y,2" class="right">next</a>'
+    assert listing._is_pagination_link(html, "next") is True
+
+
+def test_pagination_rel_only_no_class():
+    html = '<a href="/x/y,2" rel="next">next</a>'
+    assert listing._is_pagination_link(html, "next") is True
+
+
+def test_pagination_rejects_javascript_href():
+    html = '<a href="javascript:;" class="right" rel="next">x</a>'
+    assert listing._is_pagination_link(html, "next") is False
+
+
+def test_pagination_prev_rel_text():
+    html = '<a href="/x/y,1" class="left" rel="prev">prev</a>'
+    assert listing._is_pagination_link(html, "prev") is True
+
+
+def test_pagination_e2e_rel_next():
+    html = '<div class="paginator"><a href="https://chomikuj.pl/Sechel/Prueba,2" class="right" rel="next">następna strona »</a></div>'
+    calls = _run_paginas(html)
+    assert len(calls) == 1
+    call_args = calls[0][0]
+    assert call_args[1] == 'https://chomikuj.pl/Sechel/Prueba,2'
+    assert call_args[2] == 3
+

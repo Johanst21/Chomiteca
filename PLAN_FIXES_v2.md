@@ -25,6 +25,7 @@
 | ID | Título | Gravedad | Esfuerzo | Depende de | Estado |
 |---|---|---|---|---|---|
 | F27 | Paginación con URLs absolutas | alto (bug activo) | S | ninguno | [x] merged (391775c) |
+| F27c | Fix pagination regression from F27 | alto (regresión) | `listing.py`, `tests/test_pagination.py` | S | F27 | [x] pending release |
 | F22a | Account model + store_password setting | alto (seguridad) | S | ninguno | [x] merged (85398c8) |
 | F22b | Cookie import helpers + verify_session | alto (seguridad) | M | F22a | [x] merged (20e0484) |
 | F22c | Cookie import UI + README | alto (seguridad) | M | F22b | [x] merged (0e86b53) |

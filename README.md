@@ -60,11 +60,9 @@ This project is licensed under the **GNU General Public License v3.0 or later** 
 
 See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
-### 1.14.0 (current release)
+### 1.14.1 (current release)
 
-- **F27:** Pagination works with absolute URLs (was broken: "next page" did nothing).
-- **F22:** Option to authenticate via imported browser cookies instead of storing password in plain text.
-- **F12, F13:** Minor cleanups (import order, search error notification).
+- **F27c:** Pagination works again. F27's stricter detection was rejecting valid Chomikuj pagination links.
 
 ### 1.13.0
 
