@@ -143,15 +143,37 @@ def delete_cookies(delCookiesPath):
 
 def login(defora=False):
     active_account = get_active_account_details()
-    if not active_account or not active_account.get('username') or not active_account.get('password'):
+    if not active_account or not active_account.get('username'):
         k.log("Login attempt failed: No active account or incomplete credentials.", xbmc.LOGWARNING)
         if not defora:
             notify(traducao(40109), error=True)
         return False
+
+    auth_method = active_account.get("auth_method", "password")
     current_username = active_account['username']
-    current_password = active_account['password']
-    current_site = MainURL
     current_label = active_account.get('label', nameURL)
+
+    if auth_method == "cookies":
+        # TODO(F22b): add real session verification
+        session = make_session()
+        if session.has_cookies():
+            k.log(f"Usando cookies existentes para {current_label}.", xbmc.LOGINFO)
+            return True
+        else:
+            k.log("Login: cookies required but not available for %s" % current_label, xbmc.LOGWARNING)
+            if not defora:
+                notify(traducao(40109), error=True)
+            return False
+
+    # auth_method == "password"
+    current_password = active_account.get('password', '')
+    if not current_password:
+        k.log("Login attempt failed: Password missing for password-based account.", xbmc.LOGWARNING)
+        if not defora:
+            notify(traducao(40109), error=True)
+        return False
+
+    current_site = MainURL
     cookies_ok = False
     if os.path.exists(cookies):
         try:

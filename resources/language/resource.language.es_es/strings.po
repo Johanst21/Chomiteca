@@ -1464,3 +1464,8 @@ msgstr "Índice actualizado: {} elementos"
 msgctxt "#40401"
 msgid "Settings"
 msgstr "Configuración"
+
+msgctxt "#40402"
+msgid "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead."
+msgstr "Guardar contraseña en accounts.json (texto plano, inseguro en Windows/Android). Desactiva para usar autenticación por cookies."
+
