@@ -4,24 +4,11 @@ All notable changes to this fork are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.14.2] - 2026-11-10
-
-### Fixed
-- **F15:** Corregido bug donde la paginación de carpetas fallaba si antes se había realizado una búsqueda. Eliminada la dependencia del archivo temporal `temp.txt`. Ahora la paginación se basa estrictamente en la URL y el modo actuales.
-
-## [1.14.1] - 2026-11-09
-
-### Fixed
-- **F27c:** Pagination regression in F27. `_is_pagination_link()` was too strict (required numeric `rel`, case-sensitive class, word-boundary match), breaking pagination on real Chomikuj pages where `rel="next"`, uppercase class, or class-with-suffix are used. Fixed by matching the pre-F27 behavior (class OR rel, case-insensitive, substring) plus absolute URL support.
-
-### Notes
-- 1.14.0 was built internally but not released due to this regression.
-- 1.14.1 supersedes it.
-
 ## [1.14.0] - 2026-11-09
 
 ### Fixed
-- **F27:** Pagination now handles the absolute URLs (`https://chomikuj.pl/...`) that Chomikuj actually returns, and ignores layout false positives (e.g. `uploadMinimalize right greenButton`). Next/Previous page buttons were non-functional before this fix.
+- **F15:** Corregido bug donde la paginación de carpetas fallaba si antes se había realizado una búsqueda. Eliminada la dependencia del archivo temporal `temp.txt`. Ahora la paginación se basa estrictamente en la URL y el modo actuales.
+- **F27 & F27c:** Pagination now handles the absolute URLs (`https://chomikuj.pl/...`) that Chomikuj actually returns, and ignores layout false positives (e.g. `uploadMinimalize right greenButton`). Resilient matching for class/rel attributes.
 - **F22:** Option to authenticate via imported browser cookies instead of storing the Chomikuj password in plain text in `accounts.json`. New setting "Store password" (Settings → General) toggles the behavior. Cookie import supports both paste-string and Netscape `cookies.txt` file. Existing accounts with stored passwords continue to work unchanged.
 - **F12:** `import errno` moved to module imports in `downloadqueue` (cosmetic).
 - **F13:** User is now notified when the search index cannot be completed due to a network error, instead of silently showing "0 results".
