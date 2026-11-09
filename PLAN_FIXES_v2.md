@@ -33,6 +33,8 @@
 
 Nota: F22 se dividió en F22a/b/c durante la implementación para reducir riesgo. El tag de release `v1.14.0` se crea en el paso final de publicación.
 
+**Hotfix 2026-11-09:** `ReturnConteudo` required relative URLs, but Chomikuj switched to absolute URLs in file links. Folders showed 0/0 items. Fixed in commit `c4c6d56` before release. The `v1.14.0` tag was recreated to include this hotfix.
+
 ### 1.14.1 — Scraping robusto
 
 | ID | Título | Gravedad | Archivos | Esfuerzo | Depende de | Estado |
