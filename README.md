@@ -35,31 +35,9 @@ By default, Chomiteca stores your Chomikuj password in plain text in `accounts.j
 
 Imported cookies are stored in `cookies.lwp` (chmod 0600 on Linux/macOS) and verified on every session. Expired cookies trigger a "reimport cookies" notification.
 
-## Changes from upstream
+## Releases
 
-See [CHANGELOG.md](CHANGELOG.md) for the full list.
-
-### 1.14.0 (current release)
-
-- Fixed folder pagination failing after a search (removed `temp.txt` dependency).
-- Fixed pagination handling of absolute URLs and layout edge cases.
-- Option to authenticate via imported browser cookies instead of storing password in plain text.
-- Minor cleanups (settings defaults, import order, search error notification).
-
-### 1.13.0
-
-- STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
-- PlayerMonitor no longer carries over seek or progress from a failed playback.
-- Service is robust against unexpected exceptions; warm-up doesn't block Kodi shutdown.
-- Session retries `IncompleteRead`/`EOFError`/`zlib.error`.
-- Local search folds `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
-- Robust downloads (HTTP 416, extension preservation, disk full as terminal error).
-- Clean playback title (no BBCode, no `default_title`, no unicode loss).
-
-### 1.12.0
-
-- STRM pruning and search index are no longer executed if the folder scan is interrupted.
-- Test harness with Kodi stubs.
+For release notes and pre-built add-on packages, visit the [Releases](https://github.com/johanst21/chomiteca/releases) page or see [CHANGELOG.md](CHANGELOG.md) for the full change history.
 
 ## Project status
 
