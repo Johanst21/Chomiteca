@@ -42,7 +42,7 @@ def test_login_cookie_account_no_cookies_returns_false(monkeypatch):
     assert res is False
 
 
-def test_login_cookie_account_with_cookies(monkeypatch):
+def test_login_cookie_account_with_valid_cookies(monkeypatch):
     monkeypatch.setattr(
         common,
         "get_active_account_details",
@@ -51,6 +51,22 @@ def test_login_cookie_account_with_cookies(monkeypatch):
     mock_session = MagicMock()
     mock_session.has_cookies.return_value = True
     monkeypatch.setattr(common, "make_session", lambda: mock_session)
+    monkeypatch.setattr(auth, "verify_session", lambda s, u: True)
 
     res = common.login()
     assert res is True
+
+
+def test_login_cookie_account_with_expired_cookies(monkeypatch):
+    monkeypatch.setattr(
+        common,
+        "get_active_account_details",
+        lambda: {"id": "4", "username": "dave", "password": "", "label": "Dave", "auth_method": "cookies"},
+    )
+    mock_session = MagicMock()
+    mock_session.has_cookies.return_value = True
+    monkeypatch.setattr(common, "make_session", lambda: mock_session)
+    monkeypatch.setattr(auth, "verify_session", lambda s, u: False)
+
+    res = common.login()
+    assert res is False

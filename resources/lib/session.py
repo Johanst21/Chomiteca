@@ -2,6 +2,7 @@
 """Sesión HTTP con cookie jar propio (sin install_opener global)."""
 import gzip
 import http.client
+import http.cookiejar
 import os
 import random
 import socket
@@ -134,6 +135,83 @@ class Session:
         req = urllib.request.Request(url)
         self.jar.add_cookie_header(req)
         return req.get_header("Cookie", "")
+
+    def set_raw_cookie_string(self, cookie_str, domain=".chomikuj.pl", path="/"):
+        """Parse 'name1=value1; name2=value2' into self.jar and save.
+
+        Returns (imported_count, skipped_names) for logging.
+        """
+        if not cookie_str or not cookie_str.strip():
+            return 0, []
+        imported = 0
+        skipped = []
+        for part in cookie_str.split(";"):
+            part = part.strip()
+            if not part:
+                continue
+            if "=" not in part:
+                skipped.append(part)
+                continue
+            name, _, value = part.partition("=")
+            name = name.strip()
+            value = value.strip()
+            if not name:
+                skipped.append(part)
+                continue
+            try:
+                c = http.cookiejar.Cookie(
+                    version=0,
+                    name=name,
+                    value=value,
+                    port=None,
+                    port_specified=False,
+                    domain=domain,
+                    domain_specified=True,
+                    domain_initial_dot=domain.startswith("."),
+                    path=path,
+                    path_specified=True,
+                    secure=True,
+                    expires=None,
+                    discard=False,
+                    comment=None,
+                    comment_url=None,
+                    rest={},
+                    rfc2109=False,
+                )
+                self.jar.set_cookie(c)
+                imported += 1
+            except Exception as exc:
+                skipped.append("%s (%r)" % (name, exc))
+        if imported:
+            self.save()
+        return imported, skipped
+
+    def import_mozilla_cookies(self, file_path, filter_domain="chomikuj.pl"):
+        """Read a Netscape cookies.txt file, copy matching cookies into self.jar, save.
+
+        Returns (imported_count, skipped_count) for logging.
+        """
+        if not file_path or not os.path.exists(file_path):
+            return 0, 0
+        try:
+            moz_jar = http.cookiejar.MozillaCookieJar(file_path)
+            moz_jar.load(ignore_discard=True, ignore_expires=True)
+        except (OSError, ValueError) as exc:
+            raise ValueError("No se pudo leer cookies.txt: %r" % exc) from exc
+        imported = 0
+        skipped = 0
+        for c in moz_jar:
+            if filter_domain and filter_domain not in (c.domain or ""):
+                skipped += 1
+                continue
+            try:
+                self.jar.set_cookie(c)
+                imported += 1
+            except Exception:
+                skipped += 1
+        if imported:
+            self.save()
+        return imported, skipped
 
 
 def text(raw):

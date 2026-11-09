@@ -154,16 +154,19 @@ def login(defora=False):
     current_label = active_account.get('label', nameURL)
 
     if auth_method == "cookies":
-        # TODO(F22b): add real session verification
         session = make_session()
-        if session.has_cookies():
-            k.log(f"Usando cookies existentes para {current_label}.", xbmc.LOGINFO)
-            return True
-        else:
-            k.log("Login: cookies required but not available for %s" % current_label, xbmc.LOGWARNING)
+        if not session.has_cookies():
+            k.log("Login: no cookies for %s" % current_label, xbmc.LOGWARNING)
             if not defora:
                 notify(traducao(40109), error=True)
             return False
+        if auth.verify_session(session, current_username):
+            k.log("Login: cookies válidas para %s" % current_label, xbmc.LOGINFO)
+            return True
+        k.log("Login: cookies expiradas o inválidas para %s" % current_label, xbmc.LOGWARNING)
+        if not defora:
+            notify("Cookies expired or invalid. Reimport cookies.", error=True)
+        return False
 
     # auth_method == "password"
     current_password = active_account.get('password', '')

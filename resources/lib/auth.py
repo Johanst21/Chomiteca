@@ -52,3 +52,53 @@ def login(session, account):
         k.log("Respuesta de login no reconocida (%d bytes)" % len(reply), xbmc.LOGWARNING)
         raise LoginError(k.tr(40110, "Respuesta de login desconocida").replace("{}", account.get("label", "")))
     session.save()
+
+
+def verify_session(session, username=None, timeout=15):
+    """Check if the given session has valid Chomikuj cookies.
+
+    Returns True if logged in (markers present, username matches if given),
+    False otherwise. Never raises.
+    """
+    try:
+        resp = session.request("https://chomikuj.pl/", timeout=timeout)
+    except TypeError:
+        # In case session.request does not accept timeout keyword argument
+        try:
+            resp = session.request("https://chomikuj.pl/")
+        except Exception as exc:
+            k.log("verify_session: request failed: %r" % exc, xbmc.LOGWARNING)
+            return False
+    except Exception as exc:
+        k.log("verify_session: request failed: %r" % exc, xbmc.LOGWARNING)
+        return False
+
+    if not resp:
+        return False
+    try:
+        body = resp if isinstance(resp, str) else resp.decode("utf-8", "ignore")
+    except Exception:
+        return False
+
+    for marker in _OK_MARKERS:
+        if marker in body:
+            break
+    else:
+        # None of the markers matched; also try the title regex for robustness
+        if not re.search(r"<title>.*Pliki użytkownika", body, re.I):
+            return False
+
+    if username:
+        # If we got a positive marker, but the page clearly shows a different user,
+        # treat as not logged in for THIS account.
+        # Only check if we can find "Pliki użytkownika <username>" with a different name.
+        title_match = re.search(r"<title>.*Pliki użytkownika\s+(\S+)", body, re.I)
+        if title_match and title_match.group(1).lower() != username.lower():
+            k.log(
+                "verify_session: cookies belong to %s, not %s"
+                % (title_match.group(1), username),
+                xbmc.LOGWARNING,
+            )
+            return False
+
+    return True
