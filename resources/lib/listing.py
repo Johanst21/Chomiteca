@@ -386,7 +386,7 @@ def ReturnConteudo(conteudo_text_param, color_param, url2_param, deFora_param, r
         file_blocks_local = []
 
     for part_item in file_blocks_local:
-        link_title_pattern = r'<a[^>]*?class="expanderHeader[^"]*?"[^>]*?href="/([^"]+)"[^>]*?title="([^"]+)"'
+        link_title_pattern = r'<a[^>]*?class="expanderHeader[^"]*?"[^>]*?href="(?:https?://[^/"]+)?/([^"]+)"[^>]*?title="([^"]+)"'
         match_item = re.search(link_title_pattern, part_item, re.DOTALL | re.IGNORECASE)
 
         if match_item:
