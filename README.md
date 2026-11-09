@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
-  <a href="https://github.com/johanst21/chomiteca/releases/tag/v1.13.0"><img src="https://img.shields.io/badge/Release-v1.13.0-green.svg" alt="Release v1.13.0"></a>
+  <a href="https://github.com/johanst21/chomiteca/releases/tag/v1.14.0"><img src="https://img.shields.io/badge/Release-v1.14.0-green.svg" alt="Release v1.14.0"></a>
 </p>
 
 A Kodi video/audio add-on for browsing, streaming, and managing content from Chomikuj.pl.
@@ -35,52 +35,34 @@ By default, Chomiteca stores your Chomikuj password in plain text in `accounts.j
 
 Imported cookies are stored in `cookies.lwp` (chmod 0600 on Linux/macOS) and verified on every session. Expired cookies trigger a "reimport cookies" notification.
 
-## Installation
-
-1. Download the release ZIP file (`plugin.video.chomiteca-x.x.x.zip`) from the [Releases](https://github.com/johanst21/chomiteca/releases) page.
-2. In Kodi, go to **Settings** → **Add-ons** → **Install from zip file**.
-3. Select the downloaded ZIP file.
-4. Wait for the add-on enabled notification.
-
-## Development & Testing
-
-Run unit tests locally using `pytest`:
-
-```bash
-pytest -q
-```
-
-All core library logic is decoupled and testable using the provided test stubs.
-
-## License
-
-This project is licensed under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later). See [LICENSE](LICENSE) for the full license text.
-
 ## Changes from upstream
 
 See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
-### 1.14.1 (current release)
+### 1.14.0 (current release)
 
-- **F27c:** Pagination works again. F27's stricter detection was rejecting valid Chomikuj pagination links.
+- **F15 (Critical):** Fixed folder pagination failing after a search (removed `temp.txt` dependency).
+- **F22:** Option to authenticate via imported browser cookies instead of storing password in plain text.
+- **F11, F12, F13:** Minor cleanups (settings defaults, import order, search error notification).
 
 ### 1.13.0
 
-- **F03:** PlayerMonitor no longer carries over seek or progress from a failed playback to the next one.
-- **F04:** Service is robust against unexpected exceptions in a tick; warm-up runs in a daemon thread (no shutdown delay).
-- **F05:** Session retries `IncompleteRead` / `EOFError` / `zlib.error` as `OSError` with backoff.
-- **F06:** Local search folds `ł`, `Ł`, `đ`, `Đ`, `ø`, `Ø`, `ß`, `æ`, `œ` before NFKD. "lodz" finds "Łódź", "walesa" finds "Wałęsa".
-- **F08:** Downloads handle HTTP 416 (invalid `.part`), preserve extension on long names (>150 chars), and treat disk full as a terminal error without retries.
-- **F09:** Playback title without BBCode, HTML, size suffix, or `default_title` on both code paths.
-- **F11:** `settings.xml` without empty defaults. No more "error reading the default value" spam in Kodi 21 logs.
+- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
+- **F03:** PlayerMonitor no longer carries over seek or progress from a failed playback.
+- **F04:** Service is robust against unexpected exceptions; warm-up doesn't block Kodi shutdown.
+- **F05:** Session retries `IncompleteRead`/`EOFError`/`zlib.error`.
+- **F06:** Local search folds `ł`, `đ`, `ø`, `ß`, `æ`, `œ`.
+- **F08:** Robust downloads (HTTP 416, extension preservation, disk full as terminal error).
+- **F09:** Clean playback title (no BBCode, no `default_title`, no unicode loss).
 
 ### 1.12.0
 
-- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted. Prevents data loss.
+- **F02 (critical):** STRM pruning and search index are no longer executed if the folder scan is interrupted.
+- Test harness with Kodi stubs.
 
 ## Project status
 
-Active development fork. 1.14.0 closes the critical pagination bug and adds an opt-in cookie authentication method. Pending for 1.14.1: F17 (regex hardening), F10 (`clean` with `&quot;`), F15 (`temp.txt` pagination), F18 (low-priority cleanups). See [PLAN_FIXES_v2.md](PLAN_FIXES_v2.md).
+Active development fork. 1.14.0 closes the pagination bug and adds an opt-in cookie authentication method. See [PLAN_FIXES_v2.md](PLAN_FIXES_v2.md) for the roadmap.
 
 ## Disclaimer
 

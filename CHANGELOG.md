@@ -4,28 +4,26 @@ All notable changes to this fork are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.14.0] - 2026-11-09
+## [1.14.0] - 2026-11-10
 
 ### Fixed
-- **F15:** Corregido bug donde la paginación de carpetas fallaba si antes se había realizado una búsqueda. Eliminada la dependencia del archivo temporal `temp.txt`. Ahora la paginación se basa estrictamente en la URL y el modo actuales.
-- **F27 & F27c:** Pagination now handles the absolute URLs (`https://chomikuj.pl/...`) that Chomikuj actually returns, and ignores layout false positives (e.g. `uploadMinimalize right greenButton`). Resilient matching for class/rel attributes.
-- **F22:** Option to authenticate via imported browser cookies instead of storing the Chomikuj password in plain text in `accounts.json`. New setting "Store password" (Settings → General) toggles the behavior. Cookie import supports both paste-string and Netscape `cookies.txt` file. Existing accounts with stored passwords continue to work unchanged.
-- **F12:** `import errno` moved to module imports in `downloadqueue` (cosmetic).
-- **F13:** User is now notified when the search index cannot be completed due to a network error, instead of silently showing "0 results".
+- **F15 (Critical):** Fixed a bug where folder pagination failed if a search had been performed previously. Removed the dependency on the `temp.txt` temporary file. Pagination is now strictly based on the current URL and mode.
+- **F11:** `settings.xml` with non-empty defaults. Eliminates the "error reading the default value" spam in Kodi 21 logs.
+- **F12:** `import errno` moved to module imports in `downloadqueue`.
+- **F13:** User is now notified when the search index cannot be completed due to a network error.
 
 ### Added
-- New string IDs 40403–40415 for the cookie import UI.
+- **F22 (Security):** Option to authenticate via imported browser cookies instead of storing the Chomikuj password in plain text in `accounts.json`. 
+  - New "Store password" setting in Settings → General.
+  - Import cookies via text string or Netscape `cookies.txt` file.
+  - Existing accounts with stored passwords continue to work unchanged.
 - `Session.set_raw_cookie_string()` and `Session.import_mozilla_cookies()` helpers.
-- `auth.verify_session()` to validate cookies without raising on network errors.
+- `auth.verify_session()` to validate cookies.
 - `Session.request()` now accepts an optional `timeout=` kwarg.
 - Security & Authentication section in `README.md`.
 
-### Pending for 1.14.1
-- **F17:** Harden login/pagination regex against real Chomikuj HTML.
-- **F10:** `clean()` with `&quot;` (synthetic fixture; real Chomikuj rejects `"` in filenames).
-- **F15:** `temp.txt` contaminating pagination after global search.
-- **F18:** Low-priority cleanups (tools, subtitles, prefetch, state).
-- Known issue: "reimport cookies for non-active account" shows a generic login-failure warning before the import flow (noted for polish).
+### Changed
+- Updated documentation to English for public release.
 
 ## [1.13.0] - 2026-11-03
 
