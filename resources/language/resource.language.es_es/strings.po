@@ -1469,3 +1469,51 @@ msgctxt "#40402"
 msgid "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead."
 msgstr "Guardar contraseña en accounts.json (texto plano, inseguro en Windows/Android). Desactiva para usar autenticación por cookies."
 
+msgctxt "#40403"
+msgid "Import cookies"
+msgstr "Importar cookies"
+
+msgctxt "#40404"
+msgid "Paste cookie string"
+msgstr "Pegar cadena de cookies"
+
+msgctxt "#40405"
+msgid "Pick cookies.txt file"
+msgstr "Seleccionar archivo cookies.txt"
+
+msgctxt "#40406"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "#40407"
+msgid "Cookies imported and verified successfully."
+msgstr "Cookies importadas y verificadas correctamente."
+
+msgctxt "#40408"
+msgid "Cookies imported but verification failed. Account saved but not activated."
+msgstr "Cookies importadas pero la verificación falló. Cuenta guardada sin activar."
+
+msgctxt "#40409"
+msgid "No cookies imported. Check the cookie string or file."
+msgstr "No se importaron cookies. Revisa la cadena de cookies o el archivo."
+
+msgctxt "#40410"
+msgid "Verification failed. Retry import?"
+msgstr "La verificación falló. ¿Reintentar la importación?"
+
+msgctxt "#40411"
+msgid "Reimport cookies"
+msgstr "Reimportar cookies"
+
+msgctxt "#40412"
+msgid "Reimporting cookies for this account will log out the current one. Continue?"
+msgstr "Reimportar cookies de esta cuenta cerrará la sesión actual. ¿Continuar?"
+
+msgctxt "#40413"
+msgid "Account added. Import cookies from Accounts menu when ready."
+msgstr "Cuenta añadida. Importa cookies desde el menú Cuentas cuando estés listo."
+
+msgctxt "#40414"
+msgid "Cookies expired or invalid. Reimport cookies from Accounts menu."
+msgstr "Cookies expiradas o inválidas. Reimporta cookies desde el menú Cuentas."
+

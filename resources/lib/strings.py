@@ -107,6 +107,30 @@ STR = {
         "Store password in accounts.json (plain text, insecure on Windows/Android). Disable to use cookie authentication instead.",
         "Guardar contraseña en accounts.json (texto plano, inseguro en Windows/Android). Desactiva para usar autenticación por cookies.",
     ),
+    40403: ("Import cookies", "Importar cookies"),
+    40404: ("Paste cookie string", "Pegar cadena de cookies"),
+    40405: ("Pick cookies.txt file", "Seleccionar archivo cookies.txt"),
+    40406: ("Cancel", "Cancelar"),
+    40407: ("Cookies imported and verified successfully.", "Cookies importadas y verificadas correctamente."),
+    40408: (
+        "Cookies imported but verification failed. Account saved but not activated.",
+        "Cookies importadas pero la verificación falló. Cuenta guardada sin activar.",
+    ),
+    40409: ("No cookies imported. Check the cookie string or file.", "No se importaron cookies. Revisa la cadena de cookies o el archivo."),
+    40410: ("Verification failed. Retry import?", "La verificación falló. ¿Reintentar la importación?"),
+    40411: ("Reimport cookies", "Reimportar cookies"),
+    40412: (
+        "Reimporting cookies for this account will log out the current one. Continue?",
+        "Reimportar cookies de esta cuenta cerrará la sesión actual. ¿Continuar?",
+    ),
+    40413: (
+        "Account added. Import cookies from Accounts menu when ready.",
+        "Cuenta añadida. Importa cookies desde el menú Cuentas cuando estés listo.",
+    ),
+    40414: (
+        "Cookies expired or invalid. Reimport cookies from Accounts menu.",
+        "Cookies expiradas o inválidas. Reimporta cookies desde el menú Cuentas.",
+    ),
 }
 
 

@@ -26,6 +26,15 @@ Personal fork of [plugin.video.chomiteca](https://github.com/Leinad4Mind/Leinad4
 - **Kodi**: Tested and supported on **Kodi 21 (Omega)** (Python 3).
 - **Platforms**: Cross-platform (Windows, Linux, Android, macOS).
 
+## Security & Authentication
+
+By default, Chomiteca stores your Chomikuj password in plain text in `accounts.json` inside your Kodi user profile. If you prefer not to store your password on disk, disable **Settings → General → Store password** and authenticate by importing browser cookies instead:
+
+1. **Paste method:** open Chomikuj in your browser, open DevTools → Network, copy the `Cookie` request header, paste it into Kodi.
+2. **File method:** export cookies with a browser extension (e.g. "Get cookies.txt LOCALLY") and pick the `.txt` file from Kodi's file browser.
+
+Imported cookies are stored in `cookies.lwp` (chmod 0600 on Linux/macOS) and verified on every session. Expired cookies trigger a "reimport cookies" notification.
+
 ## Installation
 
 1. Download the release ZIP file (`plugin.video.chomiteca-x.x.x.zip`) from the [Releases](https://github.com/johanst21/chomiteca/releases) page.
