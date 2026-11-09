@@ -23,6 +23,34 @@ from resources.lib.common import DIALOG_MESSAGE, GetThumbExt, MODE_DELETE_COOKIE
 from resources.lib.ui import addCont, addDir, addLink, end_directory
 
 
+_PAGINATION_HREF_RE = re.compile(
+    r'href=["\'](?:https?://[^/"\']+)?(/[^"\']+?)["\']'
+)
+
+
+def _is_pagination_link(anchor_html, kind):
+    """Return True if anchor_html looks like a pagination link of `kind` ('prev' or 'next')."""
+    # Extract href
+    href_match = _PAGINATION_HREF_RE.search(anchor_html)
+    if not href_match:
+        return False
+    # Extract class (or id)
+    class_match = re.search(r'(?:class|id)=["\']([^"\']+)["\']', anchor_html)
+    if not class_match:
+        return False
+    classes = class_match.group(1).split()
+    if kind == "prev":
+        if not any(c in ("prev", "previous", "left") for c in classes):
+            return False
+    else:  # next
+        if not any(c in ("next", "right") for c in classes):
+            return False
+    # Defense in depth: require rel="N" (real pagination always has it)
+    if not re.search(r'rel=["\']\d+["\']', anchor_html):
+        return False
+    return True
+
+
 def menu_principal(_):
     active_account = get_active_account_details()
     display_label_for_menu = "N/A"
@@ -517,21 +545,29 @@ def paginas(conteudo_text):
         idmode_next = 3
 
     try:
-        prev_page_match = re.search(r'<a[^>]+href=["\']/([^"\']+?)["\'][^>]*?(?:rel=["\']prev["\']|(?:class|id)=["\'][^"\']*(?:prev|previous|left)[^"\']*["\'])[^>]*?>', conteudo_text, re.IGNORECASE)
-        if prev_page_match:
-             urlpag_part_prev = html.unescape(prev_page_match.group(1))
-             if not urlpag_part_prev.startswith(('javascript:', '#')):
-                 previous_page_url = sitebase.rstrip('/') + '/' + urlpag_part_prev.lstrip('/')
-                 k.log(f"Found previous page link: {previous_page_url} (mode 3)", xbmc.LOGDEBUG)
-        else: k.log("Previous page link not found.", xbmc.LOGDEBUG)
+        for anchor in re.findall(r'<a[^>]+>', conteudo_text):
+            if _is_pagination_link(anchor, "prev"):
+                match = _PAGINATION_HREF_RE.search(anchor)
+                if match:
+                    urlpag_part_prev = html.unescape(match.group(1))
+                    if not urlpag_part_prev.startswith(('javascript:', '#')):
+                        previous_page_url = sitebase.rstrip('/') + '/' + urlpag_part_prev.lstrip('/')
+                        k.log(f"Found previous page link: {previous_page_url} (mode 3)", xbmc.LOGDEBUG)
+                        break
+        if not previous_page_url:
+            k.log("Previous page link not found.", xbmc.LOGDEBUG)
 
-        next_page_match = re.search(r'<a[^>]+href=["\']/([^"\']+?)["\'][^>]*?(?:rel=["\']next["\']|(?:class|id)=["\'][^"\']*(?:next|right)[^"\']*["\'])[^>]*?>', conteudo_text, re.IGNORECASE)
-        if next_page_match:
-             urlpag_part_next = html.unescape(next_page_match.group(1))
-             if not urlpag_part_next.startswith(('javascript:', '#')):
-                 next_page_url = sitebase.rstrip('/') + '/' + urlpag_part_next.lstrip('/')
-                 k.log(f"Found next page link: {next_page_url} (mode {idmode_next})", xbmc.LOGDEBUG)
-        else: k.log("Standard next page link not found.", xbmc.LOGDEBUG)
+        for anchor in re.findall(r'<a[^>]+>', conteudo_text):
+            if _is_pagination_link(anchor, "next"):
+                match = _PAGINATION_HREF_RE.search(anchor)
+                if match:
+                    urlpag_part_next = html.unescape(match.group(1))
+                    if not urlpag_part_next.startswith(('javascript:', '#')):
+                        next_page_url = sitebase.rstrip('/') + '/' + urlpag_part_next.lstrip('/')
+                        k.log(f"Found next page link: {next_page_url} (mode {idmode_next})", xbmc.LOGDEBUG)
+                        break
+        if not next_page_url:
+            k.log("Standard next page link not found.", xbmc.LOGDEBUG)
 
         if previous_page_url: addDir(label_prev, previous_page_url, 3, icon_prev, 0, True)
         if next_page_url: addDir(label_next, next_page_url, idmode_next, icon_next, 0, True)
