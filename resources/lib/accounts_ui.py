@@ -22,6 +22,56 @@ from resources.lib import state as st
 from resources.lib.common import DIALOG_MESSAGE, cookies, get_active_account_details, load_accounts, notify, save_accounts, selfAddon, set_active_account_and_relogin, traducao, update_global_user_refs
 
 
+def import_cookies_flow(username, session=None):
+    """Interactive cookie import. Returns (success, message_key):
+       success: True if cookies were imported AND verified.
+       message_key: short reason for success/failure (for notify).
+    """
+    if session is None:
+        session = make_session()
+
+    dialog = xbmcgui.Dialog()
+    options = [
+        strings.t(40404),  # "Paste cookie string"
+        strings.t(40405),  # "Pick cookies.txt file"
+        strings.t(40406),  # "Cancel"
+    ]
+    choice = dialog.select(strings.t(40403), options)
+
+    imported_count = 0
+    if choice == 0:
+        kb = xbmc.Keyboard('', strings.t(40404))
+        kb.doModal()
+        if not kb.isConfirmed() or not kb.getText():
+            return False, "cancelled"
+        raw_cookie = kb.getText().strip()
+        if not raw_cookie:
+            return False, "cancelled"
+        imported_count, _ = session.set_raw_cookie_string(raw_cookie)
+    elif choice == 1:
+        selected = DIALOG_MESSAGE.browse(1, strings.t(40405), 'files', mask='.txt|.cookies')
+        if isinstance(selected, list):
+            selected = selected[0] if selected else ''
+        if not selected:
+            return False, "cancelled"
+        imported_count, _ = session.import_mozilla_cookies(selected)
+    else:
+        return False, "cancelled"
+
+    if imported_count == 0:
+        notify(strings.t(40409), error=True)
+        return False, "no_cookies_imported"
+
+    if auth.verify_session(session, username):
+        notify(strings.t(40407))
+        return True, "ok"
+
+    if DIALOG_MESSAGE.yesno(strings.t(40403), strings.t(40410)):
+        return import_cookies_flow(username, session=session)
+
+    return False, "verify_failed"
+
+
 def add_new_account_ui():
     kb = xbmc.Keyboard('', traducao(40088))
     kb.doModal()
@@ -66,11 +116,24 @@ def add_new_account_ui():
     if save_accounts(accounts):
         notify(traducao(40100).format(new_label))
         if auth_method == "cookies":
-            notify("Account added. Reimport cookies to authenticate (F22c pending).")
-        if len(accounts) == 1 or not selfAddon.getSetting('active_account_id'):
-            set_active_account_and_relogin(new_id, account_details_provided=new_account_details)
+            ok, reason = import_cookies_flow(new_username)
+            if ok:
+                if len(accounts) == 1 or not selfAddon.getSetting('active_account_id'):
+                    set_active_account_and_relogin(new_id, account_details_provided=new_account_details)
+                else:
+                    xbmc.executebuiltin("Container.Refresh")
+            else:
+                if reason == "cancelled":
+                    notify(strings.t(40413))
+                else:
+                    notify(strings.t(40408))
+                xbmc.executebuiltin("Container.Refresh")
+                return
         else:
-            xbmc.executebuiltin("Container.Refresh")
+            if len(accounts) == 1 or not selfAddon.getSetting('active_account_id'):
+                set_active_account_and_relogin(new_id, account_details_provided=new_account_details)
+            else:
+                xbmc.executebuiltin("Container.Refresh")
     else:
         notify(traducao(40101), error=True)
 
@@ -117,25 +180,40 @@ def manage_accounts_ui():
     else:
         selected_account_id = account_map_idx_to_id.get(choice_idx)
         if selected_account_id:
-            selected_account_label = traducao(40023).strip()[:-3]
-            selected_account_username = ""
+            selected_account = None
             for acc_detail_lookup in accounts:
                 if acc_detail_lookup.get('id') == selected_account_id:
-                    selected_account_label = acc_detail_lookup.get('label', acc_detail_lookup.get('username', traducao(40023).strip()[:-3]))
-                    selected_account_username = acc_detail_lookup.get('username', '')
+                    selected_account = acc_detail_lookup
                     break
+            if selected_account is None:
+                notify(traducao(40129).format(traducao(40022)), error=True)
+                return
+
+            selected_account_label = selected_account.get('label', selected_account.get('username', traducao(40023).strip()[:-3]))
+            selected_account_username = selected_account.get('username', '')
+            is_cookie_account = selected_account.get('auth_method') == 'cookies'
+
             sub_options_list = [traducao(40083)]
             if selected_account_id == active_id:
                 sub_options_list[0] = traducao(40084)
             sub_options_list.append(traducao(40085))
+            if is_cookie_account:
+                sub_options_list.append(strings.t(40411))
             sub_options_list.append(traducao(40086))
+
             sub_choice_idx = dialog.select(f"{traducao(40022).split(' ')[0]} {traducao(40022).split(' ')[1]}: {selected_account_label}", sub_options_list)
 
             if sub_choice_idx == 0:
                 set_active_account_and_relogin(selected_account_id)
             elif sub_choice_idx == 1:
                 edit_account_label_ui(selected_account_id, selected_account_label, selected_account_username)
-            elif sub_choice_idx == 2:
+            elif is_cookie_account and sub_choice_idx == 2:
+                if selected_account_id != active_id:
+                    if not DIALOG_MESSAGE.yesno(strings.t(40411), strings.t(40412)):
+                        return
+                    set_active_account_and_relogin(selected_account_id)
+                import_cookies_flow(selected_account_username)
+            elif (is_cookie_account and sub_choice_idx == 3) or (not is_cookie_account and sub_choice_idx == 2):
                 if DIALOG_MESSAGE.yesno(traducao(40087), f"{traducao(10105).split('?')[0]} {traducao(40086).lower()} '{selected_account_label}'?"):
                     remove_account(selected_account_id)
         else:

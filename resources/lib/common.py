@@ -165,7 +165,7 @@ def login(defora=False):
             return True
         k.log("Login: cookies expiradas o inválidas para %s" % current_label, xbmc.LOGWARNING)
         if not defora:
-            notify("Cookies expired or invalid. Reimport cookies.", error=True)
+            notify(traducao(40414), error=True)
         return False
 
     # auth_method == "password"
